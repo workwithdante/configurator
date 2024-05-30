@@ -1,0 +1,11 @@
+.DS_Store
+*.pyc
+*.egg-info
+*.swp
+tags
+node_modules
+public
+package-lock.json
+yarn.lock
+__pycache__
+development/frappe-bench
