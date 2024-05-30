@@ -5,6 +5,7 @@
 tags
 node_modules
 public
+!public/js
 package-lock.json
 yarn.lock
 __pycache__
