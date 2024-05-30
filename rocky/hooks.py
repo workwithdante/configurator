@@ -4,6 +4,8 @@ app_publisher = "Rocky"
 app_description = "Rocky"
 app_email = "rocky@gmail.com"
 app_license = "mit"
+
+setup_wizard_stages = "mabegroup.setup_wizard.get_setup_stages"
 # required_apps = []
 
 # Includes in <head>
