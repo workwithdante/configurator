@@ -5,7 +5,19 @@ app_description = "Rocky"
 app_email = "rocky@gmail.com"
 app_license = "mit"
 
-setup_wizard_stages = "mabegroup.setup_wizard.get_setup_stages"
+# setup wizard
+setup_wizard_requires = "assets/rocky/js/setup_wizard.js"
+setup_wizard_stages = "rocky.setup.setup_wizard.setup_wizard.get_setup_stages"
+
+# import fixtures
+fixtures = [
+    # export all records from the Category table
+    "Patient",
+    # export only those records that match the filters from the Role table
+    #{"dt": "Role", "filters": [["role_name", "like", "Admin%"]]},
+]
+
+
 # required_apps = []
 
 # Includes in <head>
@@ -119,6 +131,11 @@ setup_wizard_stages = "mabegroup.setup_wizard.get_setup_stages"
 # override_doctype_class = {
 # 	"ToDo": "custom_app.overrides.CustomToDo"
 # }
+
+override_doctype_class = {
+	"Patient": "rocky.rocky.custom.address.ERPNextAddress"
+}
+
 
 # Document Events
 # ---------------
