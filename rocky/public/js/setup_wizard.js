@@ -24,12 +24,6 @@ rocky.setup.slides_settings = [
 				fieldtype: "Data",
 				reqd: 1,
 			}
-		],
-
-		onload: function (slide) {
-			this.bind_events(slide);
-			this.load_chart_of_accounts(slide);
-			this.set_fy_dates(slide);
-		}
+		]
 	}
 ]

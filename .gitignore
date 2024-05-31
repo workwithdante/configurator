@@ -4,9 +4,9 @@
 *.swp
 tags
 node_modules
-public
+public/*
 !public/js
 package-lock.json
 yarn.lock
-__pycache__
+__pycache__/*
 development/frappe-bench
