@@ -132,9 +132,9 @@ fixtures = [
 # 	"ToDo": "custom_app.overrides.CustomToDo"
 # }
 
-override_doctype_class = {
-	"Patient": "rocky.rocky.custom.address.ERPNextAddress"
-}
+#override_doctype_class = {
+#	"Patient": "rocky.rocky.custom.address.ERPNextAddress"
+#}
 
 
 # Document Events
