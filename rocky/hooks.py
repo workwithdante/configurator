@@ -18,6 +18,9 @@ fixtures = [
     #{"dt": "Role", "filters": [["role_name", "like", "Admin%"]]},
 ]
 
+get_translated_dict = {
+    ("doctype", "Sales Order"): "rocky.translations.en.get_translations"
+}
 
 # required_apps = []
 
