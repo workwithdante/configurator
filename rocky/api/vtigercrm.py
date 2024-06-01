@@ -2,6 +2,9 @@ import frappe
 from WSClient import *
 from datetime import datetime
 
+def long_running_job(param1, param2):
+    frappe.msgprint("Si funcioné", realtime=True)
+
 @frappe.whitelist(methods='POST')
 def create(basicInfo, dependentInfo, payInfo, helpDeskInfo, sellInfo):
 	basicDict = frappe._dict(basicInfo)

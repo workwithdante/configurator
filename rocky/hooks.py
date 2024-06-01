@@ -13,6 +13,7 @@ setup_wizard_stages = "rocky.setup.setup_wizard.setup_wizard.get_setup_stages"
 fixtures = [
     # export all records from the Category table
     "Patient",
+	"Sales Order"
     # export only those records that match the filters from the Role table
     #{"dt": "Role", "filters": [["role_name", "like", "Admin%"]]},
 ]
