@@ -46,6 +46,9 @@ translated_dict = {
 # web_include_css = "/assets/rocky/css/rocky.css"
 # web_include_js = "/assets/rocky/js/rocky.js"
 
+web_include_js = "/assets/rocky/js/utils.js"
+doctype_js = {"Customer" : "public/js/customer.js"}
+
 # include custom scss in every website theme (without file extension ".scss")
 # website_theme_scss = "rocky/public/scss/website"
 
