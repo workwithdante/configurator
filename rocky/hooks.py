@@ -164,6 +164,12 @@ translated_dict = {
 # 	}
 # }
 
+doc_events = {
+    "Contact": {
+        "on_update": "rocky.rocky.custom.contact.update_related_contacts"
+    }
+}
+
 # Scheduled Tasks
 # ---------------
 
