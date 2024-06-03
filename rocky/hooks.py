@@ -22,6 +22,17 @@ get_translated_dict = {
     ("doctype", "Sales Order"): "rocky.translations.en.get_translations"
 }
 
+translated_search_doctypes = ["Sales Order"]
+
+# Registro de las traducciones
+translated_dict = {
+    "doctype": {
+        "Sales Order": {
+            "en": "rocky.translations.en.get_translations"
+        }
+    }
+}
+
 # required_apps = []
 
 # Includes in <head>
