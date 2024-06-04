@@ -113,6 +113,7 @@
         const inputValueReset = event.target.value.replace(/\D/g, '');
         const limitedChain = inputValueReset.slice(0, 3);
         event.target.value = limitedChain;
+        data.value.extension.value = limitedChain;
 
         if(event.target.value === '' || event.target.value.length !== 3) { 
             data.value.extension.error = true
@@ -126,8 +127,9 @@
 		const limitedChain = inputValueReset.slice(0, 10);
 		const formattedPhoneNumber = formatAsPhoneNumber(limitedChain);
 		event.target.value = formattedPhoneNumber;
+        data.value.phone.value = formattedPhoneNumber;
 
-        if(event.target.value === '' || event.target.value.length !== 14) { 
+        if(formattedPhoneNumber === '' || formattedPhoneNumber.length !== 14) { 
             data.value.phone.error = true
         } else { 
             data.value.phone.error = false
@@ -139,8 +141,9 @@
 		const limitedChain = inputValueReset.slice(0, 10);
 		const formattedPhoneNumber = formatAsPhoneNumber(limitedChain);
 		event.target.value = formattedPhoneNumber;
+        data.value.whatsapp_phone.value = formattedPhoneNumber;
 
-        if(event.target.value === '' || event.target.value.length !== 14) { 
+        if(formattedPhoneNumber !== '' && formattedPhoneNumber.length !== 14) { 
             data.value.whatsapp_phone.error = true
         } else { 
             data.value.whatsapp_phone.error = false

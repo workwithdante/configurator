@@ -111,7 +111,7 @@
         else sellInfo.value.extension.error = false
         if(sellInfo.value.phone.value === '' || sellInfo.value.phone.value.length !== 14) sellInfo.value.phone.error = true
         else sellInfo.value.phone.error = false
-        if(sellInfo.value.whatsapp_phone.value === '' || sellInfo.value.whatsapp_phone.value.length !== 14) sellInfo.value.whatsapp_phone.error = true
+        if(sellInfo.value.whatsapp_phone.value !== '' && sellInfo.value.whatsapp_phone.value.length !== 14) sellInfo.value.whatsapp_phone.error = true
         else sellInfo.value.whatsapp_phone.error = false
 
         if(
@@ -206,17 +206,17 @@
     }
 
     function validationPayInfo(): boolean {
-        if(payInfo.value.planid.value === '') payInfo.value.planid.error = true
+        if(payInfo.value.planid.value === '' || payInfo.value.planid.value.length !== 14) payInfo.value.planid.error = true
         else payInfo.value.planid.error = false
         if(payInfo.value.company.value === '') payInfo.value.company.error = true
         else payInfo.value.company.error = false
-        if(payInfo.value.premium.value === '') payInfo.value.premium.error = true
-        else payInfo.value.premium.error = false
+        if(payInfo.value.premium.value.length >= 4 && payInfo.value.premium.value.length <= 7) payInfo.value.premium.error = false
+        else payInfo.value.premium.error = true
         if(payInfo.value.typeIncome.value === '') payInfo.value.typeIncome.error = true
         else payInfo.value.typeIncome.error = false
-        if(payInfo.value.income.value === '') payInfo.value.income.error = true
-        else payInfo.value.income.error = false
-        if(payInfo.value.premium.value !== '0') {
+        if(Number(payInfo.value.income.value) >= 14580) payInfo.value.income.error = false
+        else payInfo.value.income.error = true
+        if(payInfo.value.premium.value !== '0.00') {
             if(payInfo.value.checkboxAccount.value === false) payInfo.value.checkboxAccount.error = true
             else payInfo.value.checkboxAccount.error = false
             if(payInfo.value.checkboxCard.value === false) payInfo.value.checkboxCard.error = true
@@ -231,34 +231,39 @@
             else payInfo.value.pay.error = false
             if(payInfo.value.autopay.value === '') payInfo.value.autopay.error = true
             else payInfo.value.autopay.error = false
+            if(payInfo.value.autoPayDay.value === '' || isNaN(Number(payInfo.value.autoPayDay.value))) payInfo.value.autoPayDay.error = true
+            else payInfo.value.autoPayDay.error = false
             if(payInfo.value.ownerPay.value === '') payInfo.value.ownerPay.error = true
             else payInfo.value.ownerPay.error = false
             if(payInfo.value.addressPay.value === '') payInfo.value.addressPay.error = true
             else payInfo.value.addressPay.error = false
-            if(payInfo.value.accountPay.value === '') payInfo.value.accountPay.error = true
-            else payInfo.value.accountPay.error = false
-            if(payInfo.value.cardPay.value === '') payInfo.value.cardPay.error = true
+            if(payInfo.value.accountPay.value.length >= 9 && payInfo.value.accountPay.value.length <= 12) payInfo.value.accountPay.error = false
+            else payInfo.value.accountPay.error = true
+            if(payInfo.value.cardPay.value === '' || payInfo.value.cardPay.value.length !== 19) payInfo.value.cardPay.error = true
             else payInfo.value.cardPay.error = false
-            if(payInfo.value.codePay.value === '') payInfo.value.codePay.error = true
+            if(payInfo.value.codePay.value.length !== 3 && payInfo.value.codePay.value.length !== 4 ) payInfo.value.codePay.error = true
             else payInfo.value.codePay.error = false
-            if(payInfo.value.routePay.value === '') payInfo.value.routePay.error = true
+            if(payInfo.value.routePay.value === '' || payInfo.value.routePay.value.length !== 11) payInfo.value.routePay.error = true
             else payInfo.value.routePay.error = false
-            if(payInfo.value.expirationPay.value === '') payInfo.value.expirationPay.error = true
+            if(payInfo.value.expirationPay.value === '' || payInfo.value.expirationPay.value.length !== 5) payInfo.value.expirationPay.error = true
             else payInfo.value.expirationPay.error = false
         }
                 
         if(
             !payInfo.value.planid.error &&
             !payInfo.value.company.error &&
+            !payInfo.value.premium.error &&
             !payInfo.value.typeIncome.error &&
             !payInfo.value.income.error &&
             !payInfo.value.pay.error &&
             !payInfo.value.autopay.error &&
+            !payInfo.value.autoPayDay.error &&
             !payInfo.value.ownerPay.error &&
             !payInfo.value.addressPay.error &&
             !payInfo.value.typeCard.error &&
             !payInfo.value.cardPay.error &&
             !payInfo.value.codePay.error &&
+            !payInfo.value.routePay.error &&
             !payInfo.value.expirationPay.error
         ) {
             return true
@@ -422,7 +427,7 @@
             error: false
         },
         premium: {
-            value: '0',
+            value: '0.00',
             error: false
         },
         family: {

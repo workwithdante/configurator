@@ -6,7 +6,7 @@
                     type="checkbox"
                     size="sm"
                     variant="subtle"
-                    :disabled="data.premium.value === '0'"
+                    :disabled="data.premium.value === '0.00'"
                     label="Card"
                     v-model="data.checkboxCard.value"
                     @change="(check) => {data.checkboxAccount.value = !check; if(check) data.checkboxAccount.error = false; data.checkboxCard.error = false;} "
@@ -18,7 +18,7 @@
                     type="checkbox"
                     size="sm"
                     variant="subtle"
-                    :disabled="data.premium.value === '0'"
+                    :disabled="data.premium.value === '0.00'"
                     label="Account"
                     v-model="data.checkboxAccount.value"
                     @change="(check) => {data.checkboxCard.value = !check; if(check) data.checkboxAccount.error = false; data.checkboxCard.error = false;}"
@@ -31,7 +31,7 @@
                     size="sm"
                     variant="subtle"
                     placeholder="Placeholder"
-                    :disabled="data.premium.value === '0'"
+                    :disabled="data.premium.value === '0.00'"
                     label="Same Owner"
                     v-model="data.sameOwner.value"
                     @change="() => {
@@ -45,7 +45,7 @@
                     type="checkbox"
                     size="sm"
                     variant="subtle"
-                    :disabled="data.premium.value === '0'"
+                    :disabled="data.premium.value === '0.00'"
                     label="Same Address"
                     v-model="data.sameAddress.value"
                     @change="() => {
@@ -59,8 +59,7 @@
 			<div class="m-auto grid grid-cols-12 gap-1">
                 <div class="col-span-2">
                     <FormControl
-                        @input="(e) => { data.planid.value = data.planid.value.toUpperCase(); if(e.target.value === '') { data.planid.error = true} else { data.planid.error = false} }"
-                        @change="() => { if(data.planid.value.length < 14) { data.planid.error = true } else { data.planid.error = false } }"
+                        @input="formatPlanID"
                         required
                         maxlength="14"
                         :type="'text'"
@@ -69,7 +68,7 @@
                         :disabled="false"
                         label="Plan ID"
                         v-model="data.planid.value" />
-                    <ErrorMessage v-if="data.planid.error" :message="'* PlanID Empty'" class="mx-2" />
+                    <ErrorMessage v-if="data.planid.error" :message="'* Plan ID Empty'" class="mx-2" />
                 </div>
                 <div class="col-span-2">
                     <FormControl
@@ -132,7 +131,7 @@
                 </div>
                 <div class="col-span-1">
                     <FormControl
-                        @input="checkPremium"
+                        @input="formatPremium"
                         required
                         :type="'text'"
                         size="sm"
@@ -178,9 +177,9 @@
                 </div>
                 <div class="col-span-1">
                     <FormControl
-                        @input="(e) => { if(e.target.value === '') { data.income.error = true} else { data.income.error = false} }"
+                        @input="formatIncome"
                         required
-                        :type="'number'"
+                        :type="'text'"
                         size="sm"
                         variant="subtle"
                         placeholder="$0.00"
@@ -196,7 +195,7 @@
                         :type="'text'"
                         size="sm"
                         variant="subtle"
-                        :disabled="data.premium.value === '0'"
+                        :disabled="data.premium.value === '0.00'"
                         label="First Pay"
                         v-model="data.pay.value" />
                     <ErrorMessage v-if="data.pay.error" :message="'* First Pay Empty'" class="mx-2" />
@@ -218,7 +217,7 @@
                         size="sm"
                         variant="subtle"
                         placeholder="Select"
-                        :disabled="data.premium.value === '0'"
+                        :disabled="data.premium.value === '0.00'"
                         label="Autopay"
                         v-model="data.autopay.value"
                     />
@@ -231,7 +230,7 @@
                         :type="'text'"
                         size="sm"
                         variant="subtle"
-                        :disabled="data.premium.value === '0'"
+                        :disabled="data.premium.value === '0.00'"
                         label="Autopay Day"
                         v-if="data.autopay.value == 'Yes'"
                         v-model="data.autoPayDay.value"
@@ -246,7 +245,7 @@
                         :type="'text'"
                         size="sm"
                         variant="subtle"
-                        :disabled="data.premium.value === '0'"
+                        :disabled="data.premium.value === '0.00'"
                         label="Owner"
                         v-model="ownerRef" />
                     <ErrorMessage v-if="data.ownerPay.error" :message="'* Owner Pay Empty'" class="mx-2" />
@@ -259,7 +258,7 @@
                         :type="'text'"
                         size="sm"
                         variant="subtle"
-                        :disabled="data.premium.value === '0'"
+                        :disabled="data.premium.value === '0.00'"
                         label="Billing Address"
                         v-model="ownerAddressRef" />
                     <ErrorMessage v-if="data.addressPay.error" :message="'* Address Pay Empty'" class="mx-2" />
@@ -294,7 +293,7 @@
                         size="sm"
                         variant="subtle"
                         placeholder="Select"
-                        :disabled="data.premium.value === '0'"
+                        :disabled="data.premium.value === '0.00'"
                         label="Bank Name"
                         v-model="data.bankAccount.value"
                         v-if="data.checkboxAccount.value"
@@ -319,7 +318,7 @@
                         size="sm"
                         variant="subtle"
                         placeholder="Select"
-                        :disabled="data.premium.value === '0'"
+                        :disabled="data.premium.value === '0.00'"
                         label="Type"
                         v-model="data.typeCard.value"
                         v-if="data.checkboxCard.value" />
@@ -341,31 +340,32 @@
                         size="sm"
                         variant="subtle"
                         placeholder="Select"
-                        :disabled="data.premium.value === '0'"
+                        :disabled="data.premium.value === '0.00'"
                         label="Type"
                         v-model="data.typeAccount.value"
                         v-if="data.checkboxAccount.value" />
                     <ErrorMessage v-if="data.typeAccount.error && data.checkboxAccount.value" :message="'* Type Account Empty'" class="mx-2" />
                 </div>
                 <div class="col-span-2">
-                    <FormControl
+                    <FormControl                    
+                        @input="formatCardNumber"
                         required
                         :type="'text'"
                         size="sm"
                         variant="subtle"
-                        :disabled="data.premium.value === '0'"
+                        :disabled="data.premium.value === '0.00'"
                         label="Card"
                         v-model="data.cardPay.value"
                         v-if="data.checkboxCard.value"
-                        @input="formatCardNumber" />
+                    />
                     <ErrorMessage v-if="data.cardPay.error && data.checkboxCard.value" :message="'* Card Empty'" class="mx-2" />
                     <FormControl
-                        @input="(e) => { if(e.target.value === '') { data.accountPay.error = true} else { data.accountPay.error = false} }"
+                        @input="formatAccountNumber"
                         required
                         :type="'text'"
                         size="sm"
                         variant="subtle"
-                        :disabled="data.premium.value === '0'"
+                        :disabled="data.premium.value === '0.00'"
                         label="Account"
                         v-model="data.accountPay.value"
                         v-if="data.checkboxAccount.value" />
@@ -377,7 +377,7 @@
                         :type="'text'"
                         size="sm"
                         variant="subtle"
-                        :disabled="data.premium.value === '0'"
+                        :disabled="data.premium.value === '0.00'"
                         label="Code"
                         v-model="data.codePay.value"
                         v-if="data.checkboxCard.value"
@@ -388,7 +388,7 @@
                         :type="'text'"
                         size="sm"
                         variant="subtle"
-                        :disabled="data.premium.value === '0'"
+                        :disabled="data.premium.value === '0.00'"
                         label="Route"
                         v-model="data.routePay.value"
                         v-if="data.checkboxAccount.value"
@@ -401,12 +401,12 @@
                         :type="'text'"
                         size="sm"
                         variant="subtle"
-                        :disabled="data.premium.value === '0'"
+                        :disabled="data.premium.value === '0.00'"
                         label="Expiration"
                         v-model="data.expirationPay.value"
                         v-if="data.checkboxCard.value"
                         @input="formatEXPNumber"/>
-                    <ErrorMessage v-if="data.expirationPay.error && data.checkboxCard.value" :message="'* Route Empty'" class="mx-2" />
+                    <ErrorMessage v-if="data.expirationPay.error && data.checkboxCard.value" :message="'* Expiration Pay Empty'" class="mx-2" />
                 </div>
             </div>
         </div>
@@ -502,21 +502,65 @@
 		}
     })
 
+    const formatPlanID = (event) => {
+        const changePlanID = event.target.value.replace(/[^a-zA-Z0-9]/g, '');
+        const limitedChain = changePlanID.slice(0, 14);
+        const mayusPlanID = limitedChain.toUpperCase();
+        event.target.value = mayusPlanID;
+        data.value.planid.value = mayusPlanID;
+        if(mayusPlanID === '' || mayusPlanID.length !== 14) {
+            data.value.planid.error = true;
+        } else {
+            data.value.planid.error = false;
+        }
+    };
+
+    const formatPremium = (event) => {
+        const changePremium = event.target.value.replace(/[^0-9.]/g, '');
+        const limitedChain = changePremium.slice(0, 7);
+        const mayusPremium = limitedChain.toUpperCase();
+        event.target.value = mayusPremium;
+        data.value.premium.value = mayusPremium;
+        if(mayusPremium.length >= 4 && mayusPremium.length <= 7) {
+            data.value.premium.error = false;
+        } else {
+            data.value.premium.error = true;
+        }
+    };
+
+    const formatIncome = (event) => {
+        const changeIncome = event.target.value.replace(/[^0-9.]/g, '');
+        const limitedChain = changeIncome.slice(0, 6);
+        event.target.value = limitedChain;
+        data.value.income.value = limitedChain;
+        if(Number(limitedChain >= 14580)) {
+            data.value.income.error = false;
+        } else {
+            data.value.income.error = true;
+        }
+    };
+
+    const formatAutoPay = (event) => {
+        const changeAutoPay = event.target.value.replace(/\D/g, '');        
+        const limitedChain = changeAutoPay.slice(0, 2);
+        const limitedNumber = Math.max(1, Math.min(31, parseInt(limitedChain)));
+        event.target.value = limitedNumber.toString();
+        data.value.autoPayDay.value = limitedNumber.toString();
+
+        if (event.target.value === '' || isNaN(limitedNumber)) {
+            data.value.autoPayDay.error = true;
+        } else {        
+            data.value.autoPayDay.error = false;    
+        }
+    };
+
     const fullname = defineModel<string>("fullname", {
         default: ''
-    })
+    });
 
 	const fulladdress = defineModel<string>("fulladdress", {
         default: ''
-    })
-
-    const formatCVCNumber = (event) => {
-        let formattedNumber = event.target.value.replace(/\D/g, '');
-        const limitedDigits = formattedNumber.slice(0, 3);
-        event.target.value = limitedDigits;
-        data.value.codePay.value = limitedDigits;
-        if(event.target.value === '') { data.value.codePay.error = true} else { data.value.codePay.error = false}
-    }
+    });
 
     const ownerRef = computed({
         get() {
@@ -528,7 +572,7 @@
         set(value) {
             data.value.ownerPay.value = value
         }
-    })
+    });
 
     const ownerAddressRef = computed({
         get() {
@@ -540,15 +584,33 @@
         set(value) {
             data.value.addressPay.value = value
         }
-    })
+    });
 
-    function checkPremium(e: any) {
-        if(e.target.value === '') {
-            data.value.premium.error = true
+    const formatCardNumber = (event) => {
+        const changeCardNumber = event.target.value.replace(/\D/g, '');
+        const formattedCardNumber = changeCardNumber.replace(/(.{4})/g, '$1-');
+        const finalFormattedCardNumber = formattedCardNumber.replace(/-$/, '');
+        const limitedChain = finalFormattedCardNumber.slice(0, 19);
+        event.target.value = limitedChain;
+        data.value.cardPay.value = limitedChain;        
+        if(limitedChain === '' || limitedChain.length !== 19) {
+            data.value.cardPay.error = true;
         } else { 
-            data.value.premium.error = false
+            data.value.cardPay.error = false;
         }
-    }
+    };    
+
+    const formatCVCNumber = (event) => {
+        const changeCVC = event.target.value.replace(/\D/g, '');
+        const limitedChain = changeCVC.slice(0, 4);
+        event.target.value = limitedChain;
+        data.value.codePay.value = limitedChain;
+        if(limitedChain.length !== 3 && limitedChain.length !== 4) {
+            data.value.codePay.error = true;
+        } else {
+            data.value.codePay.error = false;
+        }
+    };
 
     const formatEXPNumber = (event) => {
         let formattedNumber = event.target.value.replace(/\D/g, '');
@@ -569,60 +631,38 @@
         // Asignar el valor al evento y al modelo de datos
         event.target.value = limitedDigits;
         data.value.expirationPay.value = limitedDigits;
-        if(event.target.value === '') { data.value.expirationPay.error = true} else { data.value.expirationPay.error = false}
-    }
+        if(limitedDigits === '' || limitedDigits.length !== 5) {
+            data.value.expirationPay.error = true;
+        } else {
+            data.value.expirationPay.error = false;
+        }
+    };
 
-    const formatCardNumber = (event) => {
-        // Remove any non-numeric characters from the input
-        let formattedNumber = event.target.value.replace(/\D/g, '');
-
-        // Apply the card number format (####-####-####-####)
-        formattedNumber = formattedNumber.replace(/(.{4})/g, '$1-');
-
-        // Remove the trailing hyphen if present
-        formattedNumber = formattedNumber.replace(/-$/, '');
-
-        const limitedDigits = formattedNumber.slice(0, 19);
-
-        event.target.value = limitedDigits;
-
-        data.value.cardPay.value = limitedDigits;
-
-        if(event.target.value === '') { data.value.cardPay.error = true } else { data.value.cardPay.error = false }
-    }
+    const formatAccountNumber = (event) => {
+        const changeCardNumber = event.target.value.replace(/\D/g, '');
+        const limitedChain = changeCardNumber.slice(0, 12);
+        event.target.value = limitedChain;
+        data.value.accountPay.value = limitedChain;        
+        if(limitedChain.length >= 9 && limitedChain.length <= 12) {
+            data.value.accountPay.error = false;
+        } else { 
+            data.value.accountPay.error = true;
+        }
+    };
 
     const formatRouteNumber = (event) => {
-        // Remove any non-numeric characters from the input
-        let formattedNumber = event.target.value.replace(/\D/g, '');
-
-        // Apply the card number format (####-####-####-####)
-        formattedNumber = formattedNumber.replace(/(.{3})/g, '$1-');
-
-        // Remove the trailing hyphen if present
-        formattedNumber = formattedNumber.replace(/-$/, '');
-
-        const limitedDigits = formattedNumber.slice(0, 11);
-
-        event.target.value = limitedDigits;
-
-        // Update the model with the formatted value
-        data.value.routePay.value = limitedDigits;
-
-        if(event.target.value === '') { data.value.routePay.error = true} else { data.value.routePay.error = false}
-    }
-
-    const formatAutoPay = (event) => {
-        const inputValueReset = event.target.value.replace(/\D/g, '');        
-        const limitedChain = inputValueReset.slice(0, 2);
-        const limitedNumber = Math.max(0, Math.min(31, parseInt(limitedChain)));
-        event.target.value = limitedNumber;
-
-        if (event.target.value === '') {
-            data.value.autoPayDay.error = true;
-        } else {        
-            data.value.autoPayDay.error = false;    
+        const changeCardNumber = event.target.value.replace(/\D/g, '');
+        const formattedRouteNumber = changeCardNumber.replace(/(.{3})/g, '$1-');
+        const finalFormattedRouteNumber = formattedRouteNumber.replace(/-$/, '');
+        const limitedChain = finalFormattedRouteNumber.slice(0, 11);
+        event.target.value = limitedChain;
+        data.value.routePay.value = limitedChain;        
+        if(limitedChain === '' || limitedChain.length !== 11) {
+            data.value.routePay.error = true;
+        } else { 
+            data.value.routePay.error = false;
         }
-    }
+    };
 
     function isValidDateFormat(dateStr) {
         const regex = /^(0?[1-9]|1[0-2])[\/-](0?[1-9]|[12][0-9]|3[01])[\/-]\d{4}$|^((ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)\s|((Ene|Feb|Mar|Abr|May|Jun|Jul|Ago|Sep|Oct|Nov|Dic)\s)|((ene.|feb.|mar.|abr.|may.|jun.|jul.|ago.|sep.|oct.|nov.|dic.)\s)|((Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s))([1-9]|[12][0-9]|3[01])\s\d{4}$/i;
@@ -644,5 +684,5 @@
         } else {
             data.value.pay.value = ''
         }
-    }
+    };
 </script>
