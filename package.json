@@ -1,13 +1,13 @@
 {
-  "name": "rocky",
+  "name": "configurator",
   "version": "1.0.0",
-  "description": "Rocky",
+  "description": "Configuration for MabeGroup",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "cd frontend && yarn install",
-    "dev": "cd frontend && yarn dev",
-    "build": "cd frontend && yarn build"
+    "postinstall": "cd salessheet && yarn install",
+    "dev": "cd salessheet && yarn dev",
+    "build": "cd salessheet && yarn build"
   },
   "keywords": [],
   "author": "",

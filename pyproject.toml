@@ -1,9 +1,9 @@
 [project]
-name = "rocky"
+name = "configurator"
 authors = [
-    { name = "Rocky", email = "rocky@gmail.com"}
+    { name = "Dante Devenir", email = "dantedevenir@outlook.com"}
 ]
-description = "Rocky"
+description = "Configuration for MabeGroup"
 requires-python = ">=3.10"
 readme = "README.md"
 dynamic = ["version"]

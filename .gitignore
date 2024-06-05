@@ -4,10 +4,4 @@
 *.swp
 tags
 node_modules
-frontend
-www
-!public/js
-package-lock.json
-yarn.lock
-__pycache__/*
-development/frappe-bench
+__pycache__

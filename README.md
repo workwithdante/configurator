@@ -1,7 +1,7 @@
-## Rocky
+## Configurator
 
-Rocky
+Configuration for MabeGroup
 
 #### License
 
-mit
+agpl-3.0
