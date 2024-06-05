@@ -4,7 +4,8 @@
 *.swp
 tags
 node_modules
-public/*
+frontend
+www
 !public/js
 package-lock.json
 yarn.lock
