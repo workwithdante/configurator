@@ -6,32 +6,32 @@ app_email = "rocky@gmail.com"
 app_license = "mit"
 
 # setup wizard
-setup_wizard_requires = "assets/rocky/js/setup_wizard.js"
-setup_wizard_stages = "rocky.setup.setup_wizard.setup_wizard.get_setup_stages"
+#setup_wizard_requires = "assets/rocky/js/setup_wizard.js"
+#setup_wizard_stages = "rocky.setup.setup_wizard.setup_wizard.get_setup_stages"
 
 # import fixtures
-fixtures = [
+#fixtures = [
     # export all records from the Category table
-    "Patient",
-	"Sales Order"
+    #"Patient",
+	#"Sales Order"
     # export only those records that match the filters from the Role table
     #{"dt": "Role", "filters": [["role_name", "like", "Admin%"]]},
-]
+#]
 
-get_translated_dict = {
-    ("doctype", "Sales Order"): "rocky.translations.en.get_translations"
-}
+#get_translated_dict = {
+#    ("doctype", "Sales Order"): "rocky.translations.en.get_translations"
+#}
 
-translated_search_doctypes = ["Sales Order"]
+#translated_search_doctypes = ["Sales Order"]
 
 # Registro de las traducciones
-translated_dict = {
-    "doctype": {
-        "Sales Order": {
-            "en": "rocky.translations.en.get_translations"
-        }
-    }
-}
+#translated_dict = {
+#    "doctype": {
+#        "Sales Order": {
+#            "en": "rocky.translations.en.get_translations"
+#        }
+#    }
+#}
 
 # required_apps = []
 
@@ -46,8 +46,8 @@ translated_dict = {
 # web_include_css = "/assets/rocky/css/rocky.css"
 # web_include_js = "/assets/rocky/js/rocky.js"
 
-web_include_js = "/assets/rocky/js/utils.js"
-doctype_js = {"Customer" : "public/js/customer.js"}
+#web_include_js = "/assets/rocky/js/utils.js"
+#doctype_js = {"Customer" : "public/js/customer.js"}
 
 # include custom scss in every website theme (without file extension ".scss")
 # website_theme_scss = "rocky/public/scss/website"
@@ -167,11 +167,11 @@ doctype_js = {"Customer" : "public/js/customer.js"}
 # 	}
 # }
 
-doc_events = {
-    "Contact": {
-        "on_update": "rocky.rocky.custom.contact.update_related_contacts"
-    }
-}
+#doc_events = {
+    #"Contact": {
+        #"on_update": "rocky.rocky.custom.contact.update_related_contacts"
+    #}
+#}
 
 # Scheduled Tasks
 # ---------------
@@ -271,4 +271,4 @@ doc_events = {
 # }
 
 
-website_route_rules = [{'from_route': '/frontend/<path:app_path>', 'to_route': 'frontend'},]
+#website_route_rules = [{'from_route': '/frontend/<path:app_path>', 'to_route': 'frontend'},]
