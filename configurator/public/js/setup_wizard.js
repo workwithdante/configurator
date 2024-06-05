@@ -1,4 +1,4 @@
-frappe.provide("rocky.setup");
+frappe.provide("configurator.setup");
 
 frappe.pages["setup-wizard"].on_page_load = function (wrapper) {
 	if (frappe.sys_defaults.company) {
@@ -8,10 +8,10 @@ frappe.pages["setup-wizard"].on_page_load = function (wrapper) {
 };
 
 frappe.setup.on("before_load", function () {
-	rocky.setup.slides_settings.map(frappe.setup.add_slide);
+	configurator.setup.slides_settings.map(frappe.setup.add_slide);
 });
 
-rocky.setup.slides_settings = [
+configurator.setup.slides_settings = [
 	{
 		// Organization
 		name: "organization",
