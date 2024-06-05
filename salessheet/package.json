@@ -1,8 +1,7 @@
 {
-  "name": "salessheet",
+  "name": "frappe-ui-frontend",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build --base=/assets/configurator/salessheet/ && yarn copy-html-entry",
@@ -10,14 +9,18 @@
     "copy-html-entry": "cp ../configurator/public/salessheet/index.html ../configurator/www/salessheet.html"
   },
   "dependencies": {
-    "socket.io-client": "^4.5.1",
+    "feather-icons": "^4.28.0",
+    "frappe-ui": "^0.1.36",
     "vue": "^3.4.21",
-    "vue-router": "^4"
+    "vue-masked-input": "^0.5.2",
+    "vue-router": "^4.0.12",
+    "vue-sonner": "^1.1.2"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.0.4",
-    "typescript": "^5.2.2",
-    "vite": "^5.2.0",
-    "vue-tsc": "^2.0.6"
+    "@vitejs/plugin-vue": "^2.0.0",
+    "autoprefixer": "^10.4.2",
+    "postcss": "^8.4.5",
+    "tailwindcss": "^3.0.15",
+    "vite": "^2.7.2"
   }
 }
