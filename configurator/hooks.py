@@ -271,4 +271,4 @@ doc_events = {
 # }
 
 
-#website_route_rules = [{'from_route': '/salessheet/<path:app_path>', 'to_route': 'salessheet'},]
+website_route_rules = [{'from_route': '/salessheet/<path:app_path>', 'to_route': 'salessheet'},]
