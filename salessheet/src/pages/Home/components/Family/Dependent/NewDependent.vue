@@ -170,12 +170,12 @@
                                 {
                                     //Sobrino-Sobrina
                                     label: 'Nephew/Niece',
-                                    value: 'Niece'
+                                    value: 'Nephew/Niece'
                                 },
                                 {
                                     //Tío-Tía
                                     label: 'Aunt/Uncle',
-                                    value: 'Aunt'
+                                    value: 'Aunt/Uncle'
                                 },
                                 {
                                     //Cuñado-Cuñada
@@ -184,8 +184,8 @@
                                 },
                                 {
                                     //Yerno-Nuera
-                                    label: 'Son/daughter in-law',
-                                    value: 'Son/daughter in-law'
+                                    label: 'Son/Daughters in-law',
+                                    value: 'Son/Daughter in-law'
                                 },
                             ]"
                             size="sm"
