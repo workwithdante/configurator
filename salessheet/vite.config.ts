@@ -16,6 +16,7 @@ export default defineConfig({
   },
   build: {
     outDir: `../${path.basename(path.resolve('..'))}/public/salessheet`,
+    chunkSizeWarningLimit: 1000,
     emptyOutDir: true,
     target: 'es2015',
   },
