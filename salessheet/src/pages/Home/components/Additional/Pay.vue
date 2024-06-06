@@ -61,7 +61,6 @@
                     <FormControl
                         @input="formatPlanID"
                         required
-                        maxlength="14"
                         :type="'text'"
                         size="sm"
                         variant="subtle"
@@ -250,7 +249,7 @@
                         v-model="ownerRef" />
                     <ErrorMessage v-if="data.ownerPay.error" :message="'* Owner Pay Empty'" class="mx-2" />
                 </div>
-                <div class="col-span-4">
+                <div class="col-span-3">
                     <FormControl
                         @input="(e) => { if(e.target.value === '') { data.addressPay.error = true} else { data.addressPay.error = false} }"
                         required
@@ -518,10 +517,9 @@
     const formatPremium = (event) => {
         const changePremium = event.target.value.replace(/[^0-9.]/g, '');
         const limitedChain = changePremium.slice(0, 7);
-        const mayusPremium = limitedChain.toUpperCase();
-        event.target.value = mayusPremium;
-        data.value.premium.value = mayusPremium;
-        if(mayusPremium.length >= 4 && mayusPremium.length <= 7) {
+        event.target.value = limitedChain;
+        data.value.premium.value = limitedChain;
+        if(limitedChain.length >= 4 && limitedChain.length <= 7) {
             data.value.premium.error = false;
         } else {
             data.value.premium.error = true;
@@ -547,7 +545,7 @@
         event.target.value = limitedNumber.toString();
         data.value.autoPayDay.value = limitedNumber.toString();
 
-        if (event.target.value === '' || isNaN(limitedNumber)) {
+        if (isNaN(limitedNumber)) {
             data.value.autoPayDay.error = true;
         } else {        
             data.value.autoPayDay.error = false;    

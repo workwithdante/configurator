@@ -141,7 +141,7 @@
         else basicInfo.value.ssn.error = false        
         if(basicInfo.value.document.value === '') basicInfo.value.document.error = true
         else basicInfo.value.document.error = false
-        if(basicInfo.value.phone1.value === '' || basicInfo.value.phone1.value.length !== 14) basicInfo.value.phone1.error = true
+        if(basicInfo.value.phone1.value.length !== 14) basicInfo.value.phone1.error = true
         else basicInfo.value.phone1.error = false
         if(basicInfo.value.phone2.value !== '' && basicInfo.value.phone2.value.length !== 14) basicInfo.value.phone2.error = true
         else basicInfo.value.phone2.error = false        
@@ -155,7 +155,7 @@
         else basicInfo.value.address.city.error = false
         if(basicInfo.value.address.state.value === '') basicInfo.value.address.state.error = true
         else basicInfo.value.address.state.error = false        
-        if(basicInfo.value.address.zipcode.value === '' || basicInfo.value.address.zipcode.value.length !== 5) basicInfo.value.address.zipcode.error = true
+        if(basicInfo.value.address.zipcode.value.length !== 5) basicInfo.value.address.zipcode.error = true
         else basicInfo.value.address.zipcode.error = false
         if(basicInfo.value.address.county.value === '') basicInfo.value.address.county.error = true
         else basicInfo.value.address.county.error = false
@@ -195,6 +195,7 @@
             !basicInfo.value.language.error &&
             !basicInfo.value.gender.error &&
             !basicInfo.value.smoke.error &&
+            !basicInfo.value.jail.error &&
             !basicInfo.value.pregnant.error &&
             !basicInfo.value.aor.error &&
             !basicInfo.value.broker.error
@@ -206,7 +207,7 @@
     }
 
     function validationPayInfo(): boolean {
-        if(payInfo.value.planid.value === '' || payInfo.value.planid.value.length !== 14) payInfo.value.planid.error = true
+        if(payInfo.value.planid.value.length !== 14) payInfo.value.planid.error = true
         else payInfo.value.planid.error = false
         if(payInfo.value.company.value === '') payInfo.value.company.error = true
         else payInfo.value.company.error = false
@@ -263,7 +264,6 @@
             !payInfo.value.typeCard.error &&
             !payInfo.value.cardPay.error &&
             !payInfo.value.codePay.error &&
-            !payInfo.value.routePay.error &&
             !payInfo.value.expirationPay.error
         ) {
             return true

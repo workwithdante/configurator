@@ -71,7 +71,7 @@
 					/>
 					<ErrorMessage v-if="data.firstname.error" :message="'* First Name Empty'" class="mx-2" />
 				</div>
-				<div>
+				<div class="col-span-2">
 					<FormControl			
 						@input="formatMiddleName"
 						@change="trimMiddleName"
@@ -242,7 +242,7 @@
 						v-model="data.address.optional.value"
 					/>
 				</div>
-				<div>
+				<div class="col-span-2">
 					<FormControl
 						@input="formatCity"
 						@change="trimCity"
@@ -629,13 +629,13 @@ const data = defineModel<Owner>("data", {
 })
 
 const formatFirstName = (event) => {
-    const changeFirstName = event.target.value.replace(/[^a-zA-Z\s]/g, '');
-	const cleanMiddleName = changeFirstName.trim();
-    const mayusFirstName = cleanMiddleName.toUpperCase();
-    event.target.value = mayusFirstName;
-    data.value.firstname.value = mayusFirstName;
+    const cleanedFirstName = event.target.value.replace(/[^a-zA-Z\s]/g, '');
+	const trimmedFirstName = cleanedFirstName.trim();
+    const upperCaseFirstName = trimmedFirstName.toUpperCase();
+    event.target.value = upperCaseFirstName;
+    data.value.firstname.value = upperCaseFirstName;
 
-    if (mayusFirstName === '') {
+    if (upperCaseFirstName === '') {
         data.value.firstname.error = true;
     } else {
         data.value.firstname.error = false;
@@ -643,33 +643,33 @@ const formatFirstName = (event) => {
 };
 
 const formatMiddleName = (event) => {
-    const changeMiddleName = event.target.value.replace(/[^a-zA-Z\s]/g, '');
-    const mayusMiddleName = changeMiddleName.toUpperCase();
-    event.target.value = mayusMiddleName;
-    data.value.middlename.value = mayusMiddleName;
+    const cleanedMiddleName = event.target.value.replace(/[^a-zA-Z\s]/g, '');
+    const upperCaseMiddleName = cleanedMiddleName.toUpperCase();
+    event.target.value = upperCaseMiddleName;
+    data.value.middlename.value = upperCaseMiddleName;
 };
 
 const trimMiddleName = (event) => {
 	const removeSpace = event.target.value.replace(/\s+/g, ' ');
-    const cleanMiddleName = removeSpace.trim();
-    event.target.value = cleanMiddleName;
-    data.value.middlename.value = cleanMiddleName;
+    const trimmedMiddleName = removeSpace.trim();
+    event.target.value = trimmedMiddleName;
+    data.value.middlename.value = trimmedMiddleName;
 };
 
 const formatLastName = (event) => {
-    const changeLastName = event.target.value.replace(/[^a-zA-Z\s]/g, '');
-    const mayusLastName = changeLastName.toUpperCase();
-    event.target.value = mayusLastName;
-    data.value.lastname.value = mayusLastName;
+    const cleanedLastName = event.target.value.replace(/[^a-zA-Z\s]/g, '');
+    const upperCaseLastName = cleanedLastName.toUpperCase();
+    event.target.value = upperCaseLastName;
+    data.value.lastname.value = upperCaseLastName;
 };
 
 const trimLastName = (event) => {
 	const removeSpace = event.target.value.replace(/\s+/g, ' ');
-    const cleanLastName = removeSpace.trim();
-    event.target.value = cleanLastName;
-    data.value.lastname.value = cleanLastName;
+    const trimmedLastName = removeSpace.trim();
+    event.target.value = trimmedLastName;
+    data.value.lastname.value = trimmedLastName;
 
-	if (cleanLastName === '') {
+	if (trimmedLastName === '') {
 		data.value.lastname.error = true;
 	} else {
 		data.value.lastname.error = false;
@@ -677,9 +677,9 @@ const trimLastName = (event) => {
 };
 
 const formatSSN = (event) => {
-	const changeSSN = event.target.value.replace(/\D/g, '');
-	const limitedChain = changeSSN.slice(0, 9);
-	const formattedSSN = formatAsSSN(limitedChain);
+	const cleanedSSN = event.target.value.replace(/\D/g, '');
+	const limitedSSN = cleanedSSN.slice(0, 9);
+	const formattedSSN = formatAsSSN(limitedSSN);
 	event.target.value = formattedSSN;
 	data.value.ssn.value = formattedSSN;
 
@@ -724,13 +724,13 @@ const formatAsPhoneNumber = (value) => {
 };
 
 const formatPhoneNumber1 = (event) => {
-	const changePhone = event.target.value.replace(/\D/g, '');
-	const limitedChain = changePhone.slice(0, 10);
-	const formatPhone = formatAsPhoneNumber(limitedChain);
+	const cleannedPhone = event.target.value.replace(/\D/g, '');
+	const limitedPhone = cleannedPhone.slice(0, 10);
+	const formatPhone = formatAsPhoneNumber(limitedPhone);
 	event.target.value = formatPhone;
 	data.value.phone1.value = formatPhone;
 
-	if (formatPhone === '' || formatPhone.length !== 14) {
+	if (formatPhone.length !== 14) {
 		data.value.phone1.error = true;
 	} else {
 		data.value.phone1.error = false;
@@ -738,9 +738,9 @@ const formatPhoneNumber1 = (event) => {
 };
 
 const formatPhoneNumber2 = (event) => {
-	const changePhone = event.target.value.replace(/\D/g, '');
-	const limitedChain = changePhone.slice(0, 10);
-	const formatPhone = formatAsPhoneNumber(limitedChain);
+	const cleannedPhone = event.target.value.replace(/\D/g, '');
+	const limitedPhone = cleannedPhone.slice(0, 10);
+	const formatPhone = formatAsPhoneNumber(limitedPhone);
 	event.target.value = formatPhone;
 	data.value.phone2.value = formatPhone;
 
@@ -752,18 +752,18 @@ const formatPhoneNumber2 = (event) => {
 };
 
 const formatAddress = (event) => {
-	const mayusAddress = event.target.value.toUpperCase();
-	event.target.value = mayusAddress;
-	data.value.address.address.value = mayusAddress;
+	const upperCaseAddress = event.target.value.toUpperCase();
+	event.target.value = upperCaseAddress;
+	data.value.address.address.value = upperCaseAddress;
 };
 
 const trimAddress = (event) => {
 	const removeSpace = event.target.value.replace(/\s+/g, ' ');
-	const cleanAddress = removeSpace.trim();
-	event.target.value = cleanAddress;
-	data.value.address.address.value = cleanAddress;
+	const trimmedAddress = removeSpace.trim();
+	event.target.value = trimmedAddress;
+	data.value.address.address.value = trimmedAddress;
 
-	if (cleanAddress === '') {
+	if (trimmedAddress === '') {
 		data.value.address.address.error = true;
 	} else {
 		data.value.address.address.error = false;
@@ -771,33 +771,33 @@ const trimAddress = (event) => {
 };
 
 const formatApt = (event) => {
-	const limitedChain = event.target.value.slice(0, 15);
-	const mayusApt = limitedChain.toUpperCase();
-	event.target.value = mayusApt;
-	data.value.address.optional.value = mayusApt;
+	const limitedApt = event.target.value.slice(0, 15);
+	const upperCaseApt = limitedApt.toUpperCase();
+	event.target.value = upperCaseApt;
+	data.value.address.optional.value = upperCaseApt;
 };
 
 const trimApt = (event) => {
 	const removeSpace = event.target.value.replace(/\s+/g, ' ');
-	const cleanApt = removeSpace.trim();
-	event.target.value = cleanApt;
-	data.value.address.optional.value = cleanApt;
+	const trimmedApt = removeSpace.trim();
+	event.target.value = trimmedApt;
+	data.value.address.optional.value = trimmedApt;
 };
 
 const formatCity = (event) => {
-	const changeCity = event.target.value.replace(/[^a-zA-Z\s]/g, '');
-	const mayusCity = changeCity.toUpperCase();
-	event.target.value = mayusCity;
-	data.value.address.city.value = mayusCity;
+	const cleanedCity = event.target.value.replace(/[^a-zA-Z\s]/g, '');
+	const upperCaseCity = cleanedCity.toUpperCase();
+	event.target.value = upperCaseCity;
+	data.value.address.city.value = upperCaseCity;
 };
 
 const trimCity = (event) => {
 	const removeSpace = event.target.value.replace(/\s+/g, ' ');
-	const cleanCity = removeSpace.trim();
-	event.target.value = cleanCity;
-	data.value.address.city.value = cleanCity;
+	const trimmedCity = removeSpace.trim();
+	event.target.value = trimmedCity;
+	data.value.address.city.value = trimmedCity;
 
-	if (cleanCity === '') {
+	if (trimmedCity === '') {
 		data.value.address.city.error = true;
 	} else {
 		data.value.address.city.error = false;
@@ -806,26 +806,26 @@ const trimCity = (event) => {
 };
 
 const formatCounty = (event) => {
-	const changeCounty = event.target.value.replace(/[^a-zA-Z\s]/g, '');
-	const mayusCounty = changeCounty.toUpperCase();
-	event.target.value = mayusCounty;
-	data.value.address.county.value = mayusCounty;
+	const cleanedCounty = event.target.value.replace(/[^a-zA-Z\s]/g, '');
+	const upperCaseCounty = cleanedCounty.toUpperCase();
+	event.target.value = upperCaseCounty;
+	data.value.address.county.value = upperCaseCounty;
 };
 
 const trimCounty = (event) => {
 	const removeSpace = event.target.value.replace(/\s+/g, ' ');
-	const cleanCounty = removeSpace.trim();
-	event.target.value = cleanCounty;
-	data.value.address.county.value = cleanCounty;
+	const trimmedCounty = removeSpace.trim();
+	event.target.value = trimmedCounty;
+	data.value.address.county.value = trimmedCounty;
 };
 
 const formatZipCode = (event) => {
-	const changeZipCode = event.target.value.replace(/\D/g, '');
-	const limitedChain = changeZipCode.slice(0, 5);
-	event.target.value = limitedChain;
-	data.value.address.zipcode.value = limitedChain;
+	const cleanedZipCode = event.target.value.replace(/\D/g, '');
+	const limitedZipCode = cleanedZipCode.slice(0, 5);
+	event.target.value = limitedZipCode;
+	data.value.address.zipcode.value = limitedZipCode;
 	
-	if (limitedChain === '' || limitedChain.length !== 5) {
+	if (limitedZipCode.length !== 5) {
 		data.value.address.zipcode.error = true;
 	} else {
 		data.value.address.zipcode.error = false;
@@ -833,10 +833,10 @@ const formatZipCode = (event) => {
 };
 
 const formatEmail = (event) => {
-    const cleanEmail = event.target.value.trim();
-    const mayusEmail = cleanEmail.toUpperCase();
-	event.target.value = mayusEmail;
-	data.value.email.value = mayusEmail;
+    const trimmedEmail = event.target.value.trim();
+    const upperCaseEmail = trimmedEmail.toUpperCase();
+	event.target.value = upperCaseEmail;
+	data.value.email.value = upperCaseEmail;
 };
 
 function calcAge(e) {
