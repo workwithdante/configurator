@@ -5,6 +5,7 @@ import frappeui from 'frappe-ui/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/',
   plugins: [frappeui(), vue()],
   define: {
     '__VUE_PROD_HYDRATION_MISMATCH_DETAILS__': true,
@@ -13,6 +14,9 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, 'src'),
     },
+  },
+  server: {
+    port: 80,
   },
   build: {
     outDir: `../${path.basename(path.resolve('..'))}/public/salessheet`,
