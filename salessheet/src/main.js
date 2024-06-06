@@ -19,7 +19,7 @@ setConfig('resourceFetcher', frappeRequest)
 
 app.use(router)
 app.use(resourcesPlugin)
-yarn 
+
 app.component('Button', Button)
 app.component('Card', Card)
 app.component('Input', Input)
