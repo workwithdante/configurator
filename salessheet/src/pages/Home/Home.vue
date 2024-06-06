@@ -540,7 +540,7 @@
     })
 
     const createVtigerCRM = createResource({
-        url: 'rocky.api.vtigercrm.create',
+        url: 'configurator.api.vtigercrm.create',
         cache: ['policyInfo'],
         beforeSubmit: () => {
             basicInfo.value.phone1.value = basicInfo.value.phone1.value.replace(/\D/g, "");
