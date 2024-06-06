@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite --port 8000",
+    "dev": "vite",
     "build": "vite build --base=/assets/configurator/salessheet/ && yarn copy-html-entry",
     "preview": "vite preview",
     "copy-html-entry": "cp ../configurator/public/salessheet/index.html ../configurator/www/salessheet.html"
