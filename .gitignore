@@ -4,6 +4,6 @@
 *.swp
 tags
 node_modules
-public
+salessheet
 salessheet.html
 __pycache__

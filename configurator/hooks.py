@@ -39,7 +39,8 @@ translated_dict = {
 # ------------------
 
 # include js, css files in header of desk.html
-# app_include_css = "/assets/configurator/css/configurator.css"
+app_include_css = "/assets/configurator/css/configurator.css"
+app_include_js = "/assets/configurator/js/customer.js"
 # app_include_js = "/assets/configurator/js/configurator.js"
 
 # include js, css files in header of web template
@@ -47,7 +48,7 @@ translated_dict = {
 # web_include_js = "/assets/configurator/js/configurator.js"
 
 web_include_js = "/assets/configurator/js/utils.js"
-doctype_js = {"Customer" : "public/js/customer.js"}
+#doctype_js = {"Customer" : "/assets/js/customer.js"}
 
 # include custom scss in every website theme (without file extension ".scss")
 # website_theme_scss = "configurator/public/scss/website"
