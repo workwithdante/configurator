@@ -2,18 +2,24 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
 import frappeui from 'frappe-ui/vite'
+import proxyOptions from './proxyOptions';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [frappeui(), vue()],
+  base: '',
+  plugins: [frappeui({ trailingSlash: false }), vue()],
   define: {
     '__VUE_PROD_HYDRATION_MISMATCH_DETAILS__': true,
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'),
+      '@': path.resolve(__dirname, 'src').replace(/\/$/, ''),
     },
   },
+  /*server: {
+		port: 8000,
+		proxy: proxyOptions
+	},*/
   build: {
     outDir: `../${path.basename(path.resolve('..'))}/public/salessheet`,
     chunkSizeWarningLimit: 1000,
