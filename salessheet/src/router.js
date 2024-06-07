@@ -4,8 +4,8 @@ import { userResource } from '@/data/user'
 
 const routes = [
   {
-    path: '/',
-    name: '',
+    path: '',
+    name: '/',
     component: () => import('@/pages/Home/Home.vue'),
   },
   {
@@ -31,7 +31,7 @@ router.beforeEach(async (to, from, next) => {
   if (to.name === 'Login' && isLoggedIn) {
     next({ name: 'Home' })
   } else if (to.name !== 'Login' && !isLoggedIn) {
-    next({ name: 'Login' })
+    window.location.href = `/login?redirect-to=/salessheet${to.path}`
   } else {
     next()
   }
