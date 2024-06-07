@@ -7,7 +7,7 @@ frappe.ui.form.on("Customer", {
                         <div class="p-4 bg-white rounded-lg">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="flex items-center">
-                                    <img src="https://development.localhost:8000/assets/configurator/img/ambetter.png" alt="Logo" style="width: 2rem; height: 2rem; margin-right: 0.5rem;">
+                                    <img src="/assets/configurator/img/ambetter.png" alt="Logo" style="width: 2rem; height: 2rem; margin-right: 0.5rem;">
                                     <div class="row">
                                         <span class="col-sm-12" mx-4>{{company}}</span>
                                         <span class="col-sm-12 mx-4 indicator-pill green filterable no-indicator-dot ellipsis">{{category}}</span>
