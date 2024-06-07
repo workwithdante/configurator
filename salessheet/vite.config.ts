@@ -7,7 +7,7 @@ import proxyOptions from './proxyOptions';
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '/',
-  plugins: [vue()],
+  plugins: [frappeui({ trailingSlash: false }), vue()],
   define: {
     '__VUE_PROD_HYDRATION_MISMATCH_DETAILS__': true,
   },

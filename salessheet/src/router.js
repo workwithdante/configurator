@@ -18,6 +18,7 @@ const routes = [
 let router = createRouter({
   history: createWebHistory('/salessheet'),
   routes,
+  trailingSlash: false,
 })
 
 router.beforeEach(async (to, from, next) => {
