@@ -9,7 +9,7 @@
                 <div class="m-auto grid grid-cols-3 gap-1">
                     <div class="col-span-2">
                         <FormControl
-                            @input="(e) => { dataCalc.firstname.value = dataCalc.firstname.value.toUpperCase(); if(e.target.value === '') { dataCalc.firstname.error = true} else { dataCalc.firstname.error = false} }"
+                            @input="formatFirstName"
                             required
                             :type="'text'"
                             size="sm"
@@ -21,7 +21,8 @@
                     </div>
                     <div>
                         <FormControl
-                            @input="dataCalc.middlename.value = dataCalc.middlename.value.toUpperCase();"
+                            @input="formatMiddleName"
+                            @change="trimMiddleName"
                             required
                             :type="'text'"
                             size="sm"
@@ -32,7 +33,8 @@
                     </div>
                     <div class="col-span-3">
                         <FormControl
-                            @input="(e) => { dataCalc.lastname.value = dataCalc.lastname.value.toUpperCase(); if(e.target.value === '') { dataCalc.lastname.error = true} else { dataCalc.lastname.error = false} }"
+                            @input="formatLastName"
+                            @change="trimLastName"
                             required
                             :type="'text'"
                             size="sm"
@@ -90,15 +92,15 @@
                         <ErrorMessage v-if="dataCalc.gender.error" :message="'* Gender Empty'" class="mx-2" />
                     </div>
                     <div>
-                        <FormControl 
+                        <FormControl  
+                            @input="formatSSN"
                             required 
                             :type="'text'" 
                             size="sm" 
                             variant="subtle"
                             :disabled="false" 
                             label="SSN" 
-                            v-model="dataCalc.ssn.value" 
-                            @input="formatSSN"
+                            v-model="dataCalc.ssn.value"
                         />
                         <ErrorMessage v-if="dataCalc.ssn.error" :message="'* SSN Empty'" class="mx-2" />
                     </div>
@@ -506,12 +508,9 @@
         if(data.value.pob.value === '') data.value.pob.error = true
         else data.value.pob.error = false
         if(data.value.gender.value === '') data.value.gender.error = true
-        else data.value.gender.error = false        
-        if(data.value.ssn.value !== '' && data.value.ssn.value.length !== 11) {
-            data.value.ssn.error = true;
-        } else {
-            data.value.ssn.error = false
-        }
+        else data.value.gender.error = false
+        if(data.value.ssn.value !== '' && data.value.ssn.value.length !== 11) data.value.ssn.error = true;
+        else data.value.ssn.error = false   
         if(data.value.coverage.label === '') data.value.coverage.error = true
         else data.value.coverage.error = false
         if(data.value.relationship.value === '') data.value.relationship.error = true
@@ -653,54 +652,86 @@
             }
 	    }
     }
+    
 
+    const formatFirstName = (event) => {
+        const cleanedFirstName = event.target.value.replace(/[^a-zA-Z\s]/g, '');
+        const trimmedFirstName = cleanedFirstName.trim();
+        const upperCaseFirstName = trimmedFirstName.toUpperCase();
+        event.target.value = upperCaseFirstName;
+        dataCalc.value.firstname.value = upperCaseFirstName;
 
-const formatSSN = (event) => {
-	// Obtener el valor actual del input
-	let inputValue = event.target.value;
+        if (upperCaseFirstName === '') {
+            dataCalc.value.firstname.error = true;
+        } else {
+            dataCalc.value.firstname.error = false;
+        }
+    };
 
-	// Eliminar cualquier carácter que no sea un número
-	let numbersOnly = inputValue.replace(/\D/g, '');
+    const formatMiddleName = (event) => {
+        const cleanedMiddleName = event.target.value.replace(/[^a-zA-Z\s]/g, '');
+        const upperCaseMiddleName = cleanedMiddleName.toUpperCase();
+        event.target.value = upperCaseMiddleName;
+        dataCalc.value.middlename.value = upperCaseMiddleName;
+    };
 
-	// Limitar la longitud del SSN a 9 dígitos
-	if (numbersOnly.length > 9) {
-		numbersOnly = numbersOnly.slice(0, 9);
-	}
+    const trimMiddleName = (event) => {
+        const removeSpace = event.target.value.replace(/\s+/g, ' ');
+        const trimmedMiddleName = removeSpace.trim();
+        event.target.value = trimmedMiddleName;
+        dataCalc.value.middlename.value = trimmedMiddleName;
+    };
 
-	// Aplicar la máscara
-	const formattedSSN = formatAsSSN(numbersOnly);
+    const formatLastName = (event) => {
+        const cleanedLastName = event.target.value.replace(/[^a-zA-Z\s]/g, '');
+        const upperCaseLastName = cleanedLastName.toUpperCase();
+        event.target.value = upperCaseLastName;
+        dataCalc.value.lastname.value = upperCaseLastName;
+    };
 
-	// Actualizar el valor del input con la máscara aplicada
-	event.target.value = formattedSSN;
+    const trimLastName = (event) => {
+        const removeSpace = event.target.value.replace(/\s+/g, ' ');
+        const trimmedLastName = removeSpace.trim();
+        event.target.value = trimmedLastName;
+        dataCalc.value.lastname.value = trimmedLastName;
 
-	// Actualizar el valor del modelo ssn
-	data.value.ssn.value = formattedSSN;
+        if (trimmedLastName === '') {
+            dataCalc.value.lastname.error = true;
+        } else {
+            dataCalc.value.lastname.error = false;
+        }
+    };
 
-	if (inputValue === '') {
-		data.value.ssn.error = false;
-	} else if (inputValue.length !== 11) {
-		data.value.ssn.error = true;
-	} else {
-		data.value.ssn.error = false;
-	}
-};
+    const formatSSN = (event) => {
+        const cleanedSSN = event.target.value.replace(/\D/g, '');
+        const limitedSSN = cleanedSSN.slice(0, 9);
+        const formattedSSN = formatAsSSN(limitedSSN);
+        event.target.value = formattedSSN;
+        dataCalc.value.ssn.value = formattedSSN;
 
-const formatAsSSN = (value) => {
-	// Aplicar la máscara
-	return value.replace(/^(\d{0,3})(\d{0,2})(\d{0,4})$/, (match, p1, p2, p3) => {
-		let formattedSSN = '';
-		if (p1) {
-			formattedSSN += `${p1}`;
-		}
-		if (p2) {
-			formattedSSN += `-${p2}`;
-		}
-		if (p3) {
-			formattedSSN += `-${p3}`;
-		}
-		return formattedSSN;
-	});
-};
+        if (formattedSSN !== '' && formattedSSN.length !== 11) {
+            dataCalc.value.ssn.error = true;
+        } else {
+            dataCalc.value.ssn.error = false;
+        }
+    };
+
+    const formatAsSSN = (value) => {
+        // Aplicar la máscara
+        return value.replace(/^(\d{0,3})(\d{0,2})(\d{0,4})$/, (match, p1, p2, p3) => {
+            let formattedSSN = '';
+            if (p1) {
+                formattedSSN += `${p1}`;
+            }
+            if (p2) {
+                formattedSSN += `-${p2}`;
+            }
+            if (p3) {
+                formattedSSN += `-${p3}`;
+            }
+            return formattedSSN;
+        });
+    };
 
     function isValidDateFormat(dateStr) {
         const regex = /^(0?[1-9]|1[0-2])[\/-](0?[1-9]|[12][0-9]|3[01])[\/-]\d{4}$|^((ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)\s|((Ene|Feb|Mar|Abr|May|Jun|Jul|Ago|Sep|Oct|Nov|Dic)\s)|((ene.|feb.|mar.|abr.|may.|jun.|jul.|ago.|sep.|oct.|nov.|dic.)\s)|((Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s))([1-9]|[12][0-9]|3[01])\s\d{4}$/i;

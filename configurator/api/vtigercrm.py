@@ -27,8 +27,9 @@ def create(basicInfo, dependentInfo, payInfo, helpDeskInfo, sellInfo):
 				#salesOrderData = {key: value for key, value in salesOrderData.items() if value != ''}
 				salesOrder = client.doCreate('SalesOrder', salesOrderData)
 				helpDeskDict.append({
-					'status': 'Open',
+					'status': 'Digitada',
 					'title': 'INSCRIPCIÓN INICIAL',
+					'Year': '2024',
 					'description': f"{datetime.now().strftime('%m/%d/%Y')} Mr. Rocky <3\n\n \
 						Familia: {payDict.family['value']}\n \
 						SSN: {basicDict.ssn['value']}\n \
@@ -90,7 +91,7 @@ def getContactData(basicDict, payDict) -> dict:
 		'cf_2103': basicDict.pregnant['value'],
 		'cf_2253': payDict.income['value'],
 		'cf_757': getDocument(basicDict.document['value']),
-		'cf_2187': 'Nueva' if basicDict.coverage['label'] == 'Yes' else ('Autorización' if basicDict.coverage['label'] == 'Authorization' else 'Recuperada'),
+		'cf_2187': 'Nueva' if basicDict.coverage['label'] == 'Yes' else ('Autorización' if basicDict.coverage['label'] == 'Autorización' else 'Recuperada'),
 		'cf_2071': payDict.family['value']
 	}
 
@@ -158,7 +159,7 @@ def getSalesOrderData(basicDict, dependentDict, payDict, contactID) -> dict:
 		'cf_2709': '' if len(spouse) == 0 else ('YES' if spouse[0]['smoke']['value'] == 'Yes' else ('NOT' if spouse[0]['smoke']['value'] == 'No' else '')),
 		'cf_2383': '' if len(spouse) == 0 else ('YES' if spouse[0]['pregnant']['value'] == 'Yes' else ('NOT' if spouse[0]['pregnant']['value'] == 'No' else '')),
 		'cf_2603': '' if len(spouse) == 0 else getDocument(spouse[0]['document']['value']),
-		'cf_2389': '' if len(spouse) == 0 else ('OBAMACARE' if len(spouse) > 0 and spouse[0]['coverage']['label'] == 'Yes' else ('MEDICAID' if len(spouse) > 1 and spouse[0]['coverage']['label'] == 'Medicaid' else None)),
+		'cf_2389': '' if len(spouse) == 0 else ('OBAMACARE' if len(spouse) > 0 and spouse[0]['coverage']['label'] == 'Yes' else ('MEDICAID' if len(spouse) > 0 and spouse[0]['coverage']['label'] == 'Medicaid' else None)),
 		'cf_2405': dependent[0]['firstname']['value'] if len(dependent) >= 1 else '',
 		'cf_2409': dependent[0]['lastname']['value'] if len(dependent) >= 1 else '',
 		'cf_2417': dependent[0]['ssn']['value'] if len(dependent) >= 1 else '',
