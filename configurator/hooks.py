@@ -39,7 +39,7 @@ translated_dict = {
 # ------------------
 
 # include js, css files in header of desk.html
-#app_include_css = "configurator.bundle.scss"
+app_include_css = "configurator.bundle.css"
 app_include_js = "configurator.bundle.js"
 # app_include_js = "/assets/configurator/js/customer.js"
 # app_include_js = "/assets/configurator/js/configurator.js"
