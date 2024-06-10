@@ -7,3 +7,4 @@ node_modules
 salessheet
 salessheet.html
 __pycache__
+dist

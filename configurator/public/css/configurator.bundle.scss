@@ -1,0 +1,12 @@
+.configurator-control {
+    @extend .col-sm-12 !optional;
+    @extend .frappe-control !optional;
+    @extend .my-2 !optional;
+}
+
+
+:root {
+    --gray-50: #e7eff5;
+    --gray-100: #F9FAFC;
+    /* Define otras variables personalizadas según sea necesario */
+}

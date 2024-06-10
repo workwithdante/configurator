@@ -1,11 +1,14 @@
 frappe.provide("configurator");
 
-configurator.templates = class Templates {
+/*configurator.Dashboard = class {
 	constructor(opts) {
 		$.extend(this, opts);
+		this.init_dashboard();
 	}
 
-	refresh() {
-        console.log("Configurator Refresh")
+	init_dashboard() {
+		var me = this;
+
+        //me.templates = {'dashboard': frappe.render('dashboard')}
     }
-}
+}*/
