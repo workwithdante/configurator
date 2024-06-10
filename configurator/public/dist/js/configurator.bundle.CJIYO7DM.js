@@ -1,7 +1,7 @@
 (() => {
   // ../configurator/configurator/public/js/dashboard.js
   frappe.provide("configurator");
-  configurator.templates = class Orders {
+  configurator.templates = class Templates {
     constructor(opts) {
       $.extend(this, opts);
     }
@@ -54,4 +54,4 @@
     </div>
 </div>`;
 })();
-//# sourceMappingURL=configurator.bundle.3NFSEE3K.js.map
+//# sourceMappingURL=configurator.bundle.CJIYO7DM.js.map

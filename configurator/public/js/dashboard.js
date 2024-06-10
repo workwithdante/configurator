@@ -1,6 +1,6 @@
 frappe.provide("configurator");
 
-configurator.templates = class Orders {
+configurator.templates = class Templates {
 	constructor(opts) {
 		$.extend(this, opts);
 	}

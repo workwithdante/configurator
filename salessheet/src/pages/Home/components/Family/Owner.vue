@@ -4,7 +4,7 @@
 			<div class="m-auto grid grid-cols-12 gap-1">
 				<div>
 					<FormControl
-						@change="(e) => { if (e.target.value === '') { data.statusSell.error = true } else { data.statusSell.error = false } }"
+						@change="updateStatusSell"
 						type="select" :options="[							
 							{
 								label: 'Nueva',
@@ -641,6 +641,14 @@ const formatFirstName = (event) => {
         data.value.firstname.error = false;
     }
 };
+
+const updateStatusSell = (e) => { 
+	if (e.target.value === '') { 
+		data.value.statusSell.error = true 
+	} else {
+		data.value.statusSell.error = false
+	} 
+}
 
 const formatMiddleName = (event) => {
     const cleanedMiddleName = event.target.value.replace(/[^a-zA-Z\s]/g, '');

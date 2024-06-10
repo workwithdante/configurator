@@ -1,5 +1,5 @@
 <template>
-	<Toaster richColors position="bottom-right" :expand="true"/>
+    <Toaster richColors position="bottom-right" :expand="true"/>
 	<div class="grid grid-cols-12">
 		<div class="col-span-12">
 			<Tabs 
@@ -418,6 +418,10 @@
     })
 
     const payInfo: Ref<pay> = ref({
+        mpid: {
+            value: '',
+            error: false
+        },
         planid: {
             value: '',
             error: false

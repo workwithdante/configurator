@@ -1,4 +1,8 @@
 export interface pay {
+    mpid: {
+        value: string,
+        error: boolean
+    },
     planid: {
         value: string,
         error: boolean

@@ -33,7 +33,7 @@
         </div>
         <Tabs v-model="state.index" :tabs="state.tabs_with_icon">
             <div class="col-span-12" v-if="state.index === 0">
-                <Basic v-model:data="basicInfo" />
+                <Owner v-model:data="basicInfo"/>
             </div>
             <div class="col-span-12" v-if="state.index === 1">
                 <Dependent
@@ -47,9 +47,11 @@
             <div class="col-span-12" v-if="state2.index === 0">
                 <Pay
                     v-model:family="family"
-                    v-model:data="payInfo"
-                    v-model:fullname="fullnameCalc"
-                    v-model:fulladdress="fulladdressCalc"/>
+                    :data="payInfo"
+                    :fullname="fullnameCalc"
+                    :fulladdress="fulladdressCalc"
+                    :authorization="basicInfo.statusSell"
+                    />
             </div>
             <div class="col-span-12" v-if="state2.index === 1">
                 <Sell v-model:data="sellInfo"/>
@@ -68,12 +70,12 @@
 <script lang="ts" setup>
     import { computed, h, ModelRef, reactive, ref, Ref, watch } from 'vue'
     import {Card, Tabs, FeatherIcon, FormControl } from 'frappe-ui'
-    import Basic from './Family/Owner.vue';
+    import Owner from './Family/Owner.vue';
 	import Dependent from './Family/Dependent/Dependent.vue';
     import Pay from './Additional/Pay.vue';
     import Sell from './Additional/Sell.vue';
     import HelpDesk from './Additional/HelpDesk/HelpDesk.vue';
-    import { DependentI, Owner } from './Family/person.interface';
+    import { DependentI, OwnerI } from './Family/person.interface';
     import { pay } from './Additional/pay.interface';
     import { sell } from './Additional/sell.interface';
 
@@ -91,12 +93,11 @@
         default: '1X1'
     })
 
-    const basicInfo: ModelRef<Owner | undefined> = defineModel('basicInfo')
+    const basicInfo: ModelRef<OwnerI | undefined> = defineModel('basicInfo')
 
     const sellInfo: ModelRef<sell | undefined> = defineModel("sellInfo")
 
     const payInfo: ModelRef<pay | undefined> = defineModel('payInfo')
-
 
     const fullnameCalc = computed({
         get() {

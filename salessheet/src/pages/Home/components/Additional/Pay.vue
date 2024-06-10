@@ -59,15 +59,28 @@
 			<div class="m-auto grid grid-cols-12 gap-1">
                 <div class="col-span-2">
                     <FormControl
+                        required
+                        :type="'text'"
+                        size="sm"
+                        variant="subtle"
+                        :disabled="false"
+                        label="MP ID"
+                        v-if="authorization.value === 'Autorización'"
+                        v-model="data.mpid.value"
+                    />
+                    <ErrorMessage v-if="authorization.error" :message="'* MP ID Empty'" class="mx-2" />
+                    <FormControl
                         @input="formatPlanID"
                         required
                         :type="'text'"
                         size="sm"
                         variant="subtle"
                         :disabled="false"
+                        v-if="authorization.value !== 'Autorización'"
                         label="Plan ID"
-                        v-model="data.planid.value" />
-                    <ErrorMessage v-if="data.planid.error" :message="'* Plan ID Empty'" class="mx-2" />
+                        v-model="data.planid.value"
+                    />
+                    <ErrorMessage v-if="authorization.error" :message="'* Plan ID Empty'" class="mx-2" />
                 </div>
                 <div class="col-span-2">
                     <FormControl
@@ -131,6 +144,7 @@
                 <div class="col-span-1">
                     <FormControl
                         @input="formatPremium"
+                        @change="floatPremium"
                         required
                         :type="'text'"
                         size="sm"
@@ -138,7 +152,8 @@
                         placeholder="$0.00"
                         :disabled="false"
                         label="Premium"
-                        v-model="data.premium.value" />
+                        v-model="data.premium.value"
+                    />
                     <ErrorMessage v-if="data.premium.error" :message="'* Premium Empty'" class="mx-2" />
                 </div>
                 <div class="col-span-1">
@@ -149,7 +164,8 @@
                         variant="subtle"
                         :disabled="true"
                         label="FxF"
-                        v-model="family" />
+                        v-model="family"
+                    />
                 </div>
                 <div class="col-span-1">
                     <FormControl
@@ -184,7 +200,8 @@
                         placeholder="$0.00"
                         :disabled="false"
                         label="Income Gross"
-                        v-model="data.income.value" />
+                        v-model="data.income.value"
+                    />
                     <ErrorMessage v-if="data.income.error" :message="'* Income Empty'" class="mx-2" />
                 </div>
                 <div class="col-span-2">
@@ -196,7 +213,8 @@
                         variant="subtle"
                         :disabled="data.premium.value === '0.00'"
                         label="First Pay"
-                        v-model="data.pay.value" />
+                        v-model="data.pay.value"
+                    />
                     <ErrorMessage v-if="data.pay.error" :message="'* First Pay Empty'" class="mx-2" />
                 </div>
                 <div class="col-span-1">
@@ -246,7 +264,8 @@
                         variant="subtle"
                         :disabled="data.premium.value === '0.00'"
                         label="Owner"
-                        v-model="ownerRef" />
+                        v-model="ownerRef" 
+                    />
                     <ErrorMessage v-if="data.ownerPay.error" :message="'* Owner Pay Empty'" class="mx-2" />
                 </div>
                 <div class="col-span-3">
@@ -259,7 +278,8 @@
                         variant="subtle"
                         :disabled="data.premium.value === '0.00'"
                         label="Billing Address"
-                        v-model="ownerAddressRef" />
+                        v-model="ownerAddressRef"
+                    />
                     <ErrorMessage v-if="data.addressPay.error" :message="'* Address Pay Empty'" class="mx-2" />
                 </div>
                 <div class="col-span-2" v-if="data.checkboxAccount.value">
@@ -320,7 +340,8 @@
                         :disabled="data.premium.value === '0.00'"
                         label="Type"
                         v-model="data.typeCard.value"
-                        v-if="data.checkboxCard.value" />
+                        v-if="data.checkboxCard.value"
+                    />
                     <ErrorMessage v-if="data.typeCard.error && data.checkboxCard.value" :message="'* Type Card Empty'" class="mx-2" />
                     <FormControl
                         @change="(e) => { if(e.target.value === '') { data.typeAccount.error = true} else { data.typeAccount.error = false} }"
@@ -342,7 +363,8 @@
                         :disabled="data.premium.value === '0.00'"
                         label="Type"
                         v-model="data.typeAccount.value"
-                        v-if="data.checkboxAccount.value" />
+                        v-if="data.checkboxAccount.value"
+                    />
                     <ErrorMessage v-if="data.typeAccount.error && data.checkboxAccount.value" :message="'* Type Account Empty'" class="mx-2" />
                 </div>
                 <div class="col-span-2">
@@ -367,7 +389,8 @@
                         :disabled="data.premium.value === '0.00'"
                         label="Account"
                         v-model="data.accountPay.value"
-                        v-if="data.checkboxAccount.value" />
+                        v-if="data.checkboxAccount.value"
+                    />
                     <ErrorMessage v-if="data.accountPay.error && data.checkboxAccount.value" :message="'* Account Empty'" class="mx-2" />
                 </div>
                 <div class="col-span-1">
@@ -380,9 +403,10 @@
                         label="Code"
                         v-model="data.codePay.value"
                         v-if="data.checkboxCard.value"
-                        @input="formatCVCNumber" />
+                        @input="formatCVCNumber" 
+                    />
                     <ErrorMessage v-if="data.codePay.error && data.checkboxCard.value" :message="'* Code Empty'" class="mx-2" />
-                    <FormControl
+                    <FormControl                
                         required
                         :type="'text'"
                         size="sm"
@@ -391,7 +415,8 @@
                         label="Route"
                         v-model="data.routePay.value"
                         v-if="data.checkboxAccount.value"
-                        @input="formatRouteNumber" />
+                        @input="formatRouteNumber"
+                    />
                     <ErrorMessage v-if="data.routePay.error && data.checkboxAccount.value" :message="'* Route Empty'" class="mx-2" />
                 </div>
                 <div class="col-span-1">
@@ -417,11 +442,19 @@
     import { pay } from './pay.interface';
 
     const family: ModelRef<string> = defineModel('family', {
-        default: '1X1'
+        default: '1x1'
+    })
+
+    const authorization: ModelRef<{value: string, error: boolean}> = defineModel('authorization', {
+        default: ''
     })
 
     const data = defineModel<pay>("data", {
         default: {
+            mpid: {
+                value: '',
+                error: false
+            },
             planid: {
                 value: '',
                 error: false
@@ -508,18 +541,26 @@
         event.target.value = mayusPlanID;
         data.value.planid.value = mayusPlanID;
         if(mayusPlanID === '' || mayusPlanID.length !== 14) {
-            data.value.planid.error = true;
+            mpid.value = 'Te falta info.';
         } else {
-            data.value.planid.error = false;
+            mpid.value = 'Muy bien';
         }
     };
 
     const formatPremium = (event) => {
-        const changePremium = event.target.value.replace(/[^0-9.]/g, '');
-        const limitedChain = changePremium.slice(0, 7);
-        event.target.value = limitedChain;
-        data.value.premium.value = limitedChain;
-        if(limitedChain.length >= 4 && limitedChain.length <= 7) {
+        const cleanedPremium = event.target.value.replace(/[^0-9.]/g, '');
+        const limitedPremium = cleanedPremium.slice(0, 7);
+        event.target.value = limitedPremium;
+        data.value.premium.value = limitedPremium;
+    };
+
+    const floatPremium = (event) => {
+        const floatValPremium = parseFloat(event.target.value).toFixed(2);
+        const limitedPremium = floatValPremium.slice(0, 7);
+        event.target.value = limitedPremium;
+        data.value.premium.value = limitedPremium;
+        
+        if(limitedPremium.length >= 4 && limitedPremium.length <= 7) {
             data.value.premium.error = false;
         } else {
             data.value.premium.error = true;
