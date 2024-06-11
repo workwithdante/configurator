@@ -99,11 +99,12 @@
     display: flex;
     align-items: center;
     margin-bottom: 15px;
+    justify-content: space-between;
 }
 
 .plan-type .logo {
-    height: 30px;
-    margin-right: 10px;
+    height: 60px;
+    margin-right: 20px;
 }
 
 .plan-type .category, .plan-type .csr {
@@ -129,18 +130,22 @@
     margin-bottom: 15px;
 }
 
+.plan-prices {
+    display: flex;
+    justify-content: space-evenly; /* Distribuye el espacio uniformemente entre los elementos */
+    margin-bottom: 16px; /* Espacio inferior entre el contenedor y otros elementos */
+}
+
 .price-item {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column; /* Alinea los elementos en columna */
+    align-items: center; /* Centra los elementos horizontalmente */
     text-align: center; /* Centra el texto dentro de cada elemento */
     padding: 8px; /* Añade padding para mejorar la apariencia */
     flex: 1; /* Permite que cada price-item crezca igual */
     margin: 0 8px; /* Añade un margen horizontal para espacio entre los elementos */
     background-color: #fff; /* Fondo blanco */
-}
-
-.price-value {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
 }
 
 .price-label {
