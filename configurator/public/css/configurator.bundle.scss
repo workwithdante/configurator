@@ -4,6 +4,16 @@
     @extend .my-2 !optional;
 }
 
+.custom-container {
+    padding: 16px; /* Clase p-4 en Bootstrap equivale a padding de 16px */
+    background-color: white;
+    border-radius: 8px; /* Clase rounded-lg en Bootstrap equivale a border-radius de 8px */
+    flex-grow: 1;
+    min-height: 300px;
+    border: 1px solid #ddd; /* Añade un borde de 1px de color gris claro */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Añade una sombra sutil */
+}
+
 .font-semibold {
     font-weight: 900; /* You can adjust this value to your preference */
 }
@@ -120,7 +130,11 @@
 }
 
 .price-item {
-    text-align: center;
+    text-align: center; /* Centra el texto dentro de cada elemento */
+    padding: 8px; /* Añade padding para mejorar la apariencia */
+    flex: 1; /* Permite que cada price-item crezca igual */
+    margin: 0 8px; /* Añade un margen horizontal para espacio entre los elementos */
+    background-color: #fff; /* Fondo blanco */
 }
 
 .price-value {
@@ -131,6 +145,7 @@
 
 .price-label {
     font-size: 14px;
+    flex: 1;
     color: #666;
 }
 
