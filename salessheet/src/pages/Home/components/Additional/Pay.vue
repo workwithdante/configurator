@@ -59,6 +59,7 @@
 			<div class="m-auto grid grid-cols-12 gap-1">
                 <div class="col-span-2">
                     <FormControl
+                        @input="formatMPID"
                         required
                         :type="'text'"
                         size="sm"
@@ -68,7 +69,7 @@
                         v-if="authorization.value === 'Autorización'"
                         v-model="data.mpid.value"
                     />
-                    <ErrorMessage v-if="authorization.error" :message="'* MP ID Empty'" class="mx-2" />
+                    <ErrorMessage v-if="authorization.value === 'Autorización' && data.mpid.error" :message="'* MP ID Empty'" class="mx-2" />
                     <FormControl
                         @input="formatPlanID"
                         required
@@ -80,7 +81,7 @@
                         label="Plan ID"
                         v-model="data.planid.value"
                     />
-                    <ErrorMessage v-if="authorization.error" :message="'* Plan ID Empty'" class="mx-2" />
+                    <ErrorMessage v-if="authorization.value !== 'Autorización' && data.planid.error" :message="'* Plan ID Empty'" class="mx-2" />
                 </div>
                 <div class="col-span-2">
                     <FormControl
@@ -215,7 +216,7 @@
                         label="First Pay"
                         v-model="data.pay.value"
                     />
-                    <ErrorMessage v-if="data.pay.error" :message="'* First Pay Empty'" class="mx-2" />
+                    <ErrorMessage v-if="data.premium.value !== '0.00' && data.pay.error" :message="'* First Pay Empty'" class="mx-2" />
                 </div>
                 <div class="col-span-1">
                     <FormControl 
@@ -238,7 +239,7 @@
                         label="Autopay"
                         v-model="data.autopay.value"
                     />
-                    <ErrorMessage v-if="data.autopay.error" :message="'* Auto Pay Empty'" class="mx-2" />
+                    <ErrorMessage v-if="data.premium.value !== '0.00' && data.autopay.error" :message="'* Auto Pay Empty'" class="mx-2" />
                 </div>
                 <div class="col-span-1">
                     <FormControl
@@ -252,7 +253,7 @@
                         v-if="data.autopay.value == 'Yes'"
                         v-model="data.autoPayDay.value"
                     />
-                    <ErrorMessage v-if="data.autoPayDay.error" :message="'* Pay Empty'" class="mx-2" />
+                    <ErrorMessage v-if="data.autopay.value == 'Yes' && data.autoPayDay.error" :message="'* Pay Empty'" class="mx-2" />
                 </div>
                 <div class="col-span-2">
                     <FormControl
@@ -266,7 +267,7 @@
                         label="Owner"
                         v-model="ownerRef" 
                     />
-                    <ErrorMessage v-if="data.ownerPay.error" :message="'* Owner Pay Empty'" class="mx-2" />
+                    <ErrorMessage v-if="data.premium.value !== '0.00' && data.ownerPay.error" :message="'* Owner Pay Empty'" class="mx-2" />
                 </div>
                 <div class="col-span-3">
                     <FormControl
@@ -280,7 +281,7 @@
                         label="Billing Address"
                         v-model="ownerAddressRef"
                     />
-                    <ErrorMessage v-if="data.addressPay.error" :message="'* Address Pay Empty'" class="mx-2" />
+                    <ErrorMessage v-if="data.premium.value !== '0.00' && data.addressPay.error" :message="'* Address Pay Empty'" class="mx-2" />
                 </div>
                 <div class="col-span-2" v-if="data.checkboxAccount.value">
                     <FormControl
@@ -317,7 +318,7 @@
                         v-model="data.bankAccount.value"
                         v-if="data.checkboxAccount.value"
                     />
-                    <ErrorMessage v-if="data.bankAccount.error && data.checkboxAccount.value" :message="'* Bank Name Empty'" class="mx-2" />
+                    <ErrorMessage v-if="data.premium.value !== '0.00' && data.bankAccount.error && data.checkboxAccount.value" :message="'* Bank Name Empty'" class="mx-2" />
                 </div>
                 <div class="col-span-1">
                     <FormControl
@@ -342,7 +343,7 @@
                         v-model="data.typeCard.value"
                         v-if="data.checkboxCard.value"
                     />
-                    <ErrorMessage v-if="data.typeCard.error && data.checkboxCard.value" :message="'* Type Card Empty'" class="mx-2" />
+                    <ErrorMessage v-if="data.premium.value !== '0.00' && data.typeCard.error && data.checkboxCard.value" :message="'* Type Card Empty'" class="mx-2" />
                     <FormControl
                         @change="(e) => { if(e.target.value === '') { data.typeAccount.error = true} else { data.typeAccount.error = false} }"
                         required
@@ -365,7 +366,7 @@
                         v-model="data.typeAccount.value"
                         v-if="data.checkboxAccount.value"
                     />
-                    <ErrorMessage v-if="data.typeAccount.error && data.checkboxAccount.value" :message="'* Type Account Empty'" class="mx-2" />
+                    <ErrorMessage v-if="data.premium.value !== '0.00' && data.typeAccount.error && data.checkboxAccount.value" :message="'* Type Account Empty'" class="mx-2" />
                 </div>
                 <div class="col-span-2">
                     <FormControl                    
@@ -379,7 +380,7 @@
                         v-model="data.cardPay.value"
                         v-if="data.checkboxCard.value"
                     />
-                    <ErrorMessage v-if="data.cardPay.error && data.checkboxCard.value" :message="'* Card Empty'" class="mx-2" />
+                    <ErrorMessage v-if="data.premium.value !== '0.00' && data.cardPay.error && data.checkboxCard.value" :message="'* Card Empty'" class="mx-2" />
                     <FormControl
                         @input="formatAccountNumber"
                         required
@@ -391,7 +392,7 @@
                         v-model="data.accountPay.value"
                         v-if="data.checkboxAccount.value"
                     />
-                    <ErrorMessage v-if="data.accountPay.error && data.checkboxAccount.value" :message="'* Account Empty'" class="mx-2" />
+                    <ErrorMessage v-if="data.premium.value !== '0.00' && data.accountPay.error && data.checkboxAccount.value" :message="'* Account Empty'" class="mx-2" />
                 </div>
                 <div class="col-span-1">
                     <FormControl
@@ -405,7 +406,7 @@
                         v-if="data.checkboxCard.value"
                         @input="formatCVCNumber" 
                     />
-                    <ErrorMessage v-if="data.codePay.error && data.checkboxCard.value" :message="'* Code Empty'" class="mx-2" />
+                    <ErrorMessage v-if="data.premium.value !== '0.00' && data.codePay.error && data.checkboxCard.value" :message="'* Code Empty'" class="mx-2" />
                     <FormControl                
                         required
                         :type="'text'"
@@ -417,7 +418,7 @@
                         v-if="data.checkboxAccount.value"
                         @input="formatRouteNumber"
                     />
-                    <ErrorMessage v-if="data.routePay.error && data.checkboxAccount.value" :message="'* Route Empty'" class="mx-2" />
+                    <ErrorMessage v-if="data.premium.value !== '0.00' && data.routePay.error && data.checkboxAccount.value" :message="'* Route Empty'" class="mx-2" />
                 </div>
                 <div class="col-span-1">
                     <FormControl
@@ -430,7 +431,7 @@
                         v-model="data.expirationPay.value"
                         v-if="data.checkboxCard.value"
                         @input="formatEXPNumber"/>
-                    <ErrorMessage v-if="data.expirationPay.error && data.checkboxCard.value" :message="'* Expiration Pay Empty'" class="mx-2" />
+                    <ErrorMessage v-if="data.premium.value !== '0.00' && data.expirationPay.error && data.checkboxCard.value" :message="'* Expiration Pay Empty'" class="mx-2" />
                 </div>
             </div>
         </div>
@@ -534,16 +535,28 @@
 		}
     })
 
+    const formatMPID = (event) => {
+        const changeMPID = event.target.value.replace(/[^a-zA-Z0-9]/g, '');
+        const limitedMPID= changeMPID.slice(0, 10);
+        event.target.value = limitedMPID;
+        data.value.mpid.value = limitedMPID;
+        if(limitedMPID.length !== 10) {
+            data.value.mpid.error = true;
+        } else {
+            data.value.mpid.error = false;
+        }
+    };
+
     const formatPlanID = (event) => {
         const changePlanID = event.target.value.replace(/[^a-zA-Z0-9]/g, '');
         const limitedChain = changePlanID.slice(0, 14);
         const mayusPlanID = limitedChain.toUpperCase();
         event.target.value = mayusPlanID;
         data.value.planid.value = mayusPlanID;
-        if(mayusPlanID === '' || mayusPlanID.length !== 14) {
-            mpid.value = 'Te falta info.';
+        if(mayusPlanID.length !== 14) {
+            data.value.planid.error = true;
         } else {
-            mpid.value = 'Muy bien';
+            data.value.planid.error = false;
         }
     };
 
@@ -568,14 +581,14 @@
     };
 
     const formatIncome = (event) => {
-        const changeIncome = event.target.value.replace(/[^0-9.]/g, '');
+        const changeIncome = event.target.value.replace(/\D/g, '');
         const limitedChain = changeIncome.slice(0, 6);
         event.target.value = limitedChain;
         data.value.income.value = limitedChain;
-        if(Number(limitedChain >= 14580)) {
-            data.value.income.error = false;
-        } else {
+        if(Number(limitedChain < 14580)) {
             data.value.income.error = true;
+        } else {
+            data.value.income.error = false;
         }
     };
 
@@ -678,11 +691,11 @@
     };
 
     const formatAccountNumber = (event) => {
-        const changeCardNumber = event.target.value.replace(/\D/g, '');
-        const limitedChain = changeCardNumber.slice(0, 12);
-        event.target.value = limitedChain;
-        data.value.accountPay.value = limitedChain;        
-        if(limitedChain.length >= 9 && limitedChain.length <= 12) {
+        const changeAccountNumber = event.target.value.replace(/\D/g, '');
+        const limitedAccountNumber = changeAccountNumber.slice(0, 12);
+        event.target.value = limitedAccountNumber;
+        data.value.accountPay.value = limitedAccountNumber;        
+        if(limitedAccountNumber.length >= 9 && limitedAccountNumber.length <= 12) {
             data.value.accountPay.error = false;
         } else { 
             data.value.accountPay.error = true;
@@ -690,13 +703,13 @@
     };
 
     const formatRouteNumber = (event) => {
-        const changeCardNumber = event.target.value.replace(/\D/g, '');
-        const formattedRouteNumber = changeCardNumber.replace(/(.{3})/g, '$1-');
+        const changeRouteNumber = event.target.value.replace(/\D/g, '');
+        const formattedRouteNumber = changeRouteNumber.replace(/(.{3})/g, '$1-');
         const finalFormattedRouteNumber = formattedRouteNumber.replace(/-$/, '');
-        const limitedChain = finalFormattedRouteNumber.slice(0, 11);
-        event.target.value = limitedChain;
-        data.value.routePay.value = limitedChain;        
-        if(limitedChain === '' || limitedChain.length !== 11) {
+        const limitedRouteNumber = finalFormattedRouteNumber.slice(0, 11);
+        event.target.value = limitedRouteNumber;
+        data.value.routePay.value = limitedRouteNumber;        
+        if(limitedRouteNumber === '' || limitedRouteNumber.length !== 11) {
             data.value.routePay.error = true;
         } else { 
             data.value.routePay.error = false;

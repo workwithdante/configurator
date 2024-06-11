@@ -207,7 +207,9 @@
     }
 
     function validationPayInfo(): boolean {
-        if(payInfo.value.planid.value.length !== 14) payInfo.value.planid.error = true
+        if( payInfo.value.mpid.value.length !== 10) payInfo.value.mpid.error = true
+        else payInfo.value.mpid.error = false
+        if( payInfo.value.planid.value.length !== 14) payInfo.value.planid.error = true
         else payInfo.value.planid.error = false
         if(payInfo.value.company.value === '') payInfo.value.company.error = true
         else payInfo.value.company.error = false
@@ -215,8 +217,8 @@
         else payInfo.value.premium.error = true
         if(payInfo.value.typeIncome.value === '') payInfo.value.typeIncome.error = true
         else payInfo.value.typeIncome.error = false
-        if(Number(payInfo.value.income.value) >= 14580) payInfo.value.income.error = false
-        else payInfo.value.income.error = true
+        if(payInfo.value.income.value === '' || Number(payInfo.value.income.value) < 14580) payInfo.value.income.error = true
+        else payInfo.value.income.error = false
         if(payInfo.value.premium.value !== '0.00') {
             if(payInfo.value.checkboxAccount.value === false) payInfo.value.checkboxAccount.error = true
             else payInfo.value.checkboxAccount.error = false

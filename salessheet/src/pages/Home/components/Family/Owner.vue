@@ -5,17 +5,17 @@
 				<div>
 					<FormControl
 						@change="updateStatusSell"
-						type="select" :options="[							
+						type="select" :options="[
 							{
-								label: 'Nueva',
+								label: 'New',
 								value: 'Nueva',
 							},
 							{
-								label: 'Autorización',
+								label: 'Authorization',
 								value: 'Autorización',
 							},
 							{
-								label: 'Recuperada',
+								label: 'Recovered',
 								value: 'Recuperada',
 							},						
 						]" 

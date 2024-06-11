@@ -29,7 +29,7 @@ def create(basicInfo, dependentInfo, payInfo, helpDeskInfo, sellInfo):
 				helpDeskDict.append({
 					'status': 'Digitada',
 					'title': 'INSCRIPCIÓN INICIAL',
-					'Year': '2024',
+					'year': '2024',
 					'description': f"{datetime.now().strftime('%m/%d/%Y')} Mr. Rocky <3\n\n \
 						Familia: {payDict.family['value']}\n \
 						SSN: {basicDict.ssn['value']}\n \
