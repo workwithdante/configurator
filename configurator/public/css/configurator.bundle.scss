@@ -4,30 +4,13 @@
     @extend .my-2 !optional;
 }
 
-.custom-container {
-    padding: 16px; /* Clase p-4 en Bootstrap equivale a padding de 16px */
+.card {
+    margin: 15px;
     background-color: white;
     border-radius: 8px; /* Clase rounded-lg en Bootstrap equivale a border-radius de 8px */
     flex-grow: 1;
-    min-height: 300px;
     border: 1px solid #ddd; /* Añade un borde de 1px de color gris claro */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Añade una sombra sutil */
-}
-
-.font-semibold {
-    font-weight: 900; /* You can adjust this value to your preference */
-}
-
-.text-gray-700 {
-    color: #4b5563;
-}
-    
-.text-xs {
-    font-size: 0.75rem;
-}
-
-.text-sm {
-    font-size: 0.875rem;
 }
 
 .text-blue-500 {
@@ -42,24 +25,6 @@
     --gray-50: #e7eff5;
     --gray-100: #F9FAFC;
     /* Define otras variables personalizadas según sea necesario */
-}
-
-.history-button {
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.history-button:hover {
-    background-color: #0056b3;
-}
-
-.main {
-    border-top: 1px solid #ddd;
-    padding-top: 20px;
 }
 
 .plan-header {
@@ -83,18 +48,6 @@
     justify-content: space-between;
 }
 
-.plan-info {
-    width: 60%;
-}
-
-.plan-card {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
 .plan-type {
     display: flex;
     align-items: center;
@@ -103,37 +56,23 @@
 }
 
 .plan-type .logo {
-    height: 60px;
-    margin-right: 20px;
-}
-
-.plan-type .category, .plan-type .csr {
-    margin-right: 10px;
-    padding: 5px 10px;
-    border-radius: 5px;
-    background-color: #ffcc00;
-    color: #fff;
-}
-
-.plan-type .csr {
-    background-color: #666;
+    margin-left: 30px;
+    height: 80px;
 }
 
 .plan-name {
     font-size: 18px;
     margin-bottom: 15px;
+    padding: 5px 10px; /* Relleno interno para la categoría */
+    border-radius: 5px; /* Bordes redondeados */
+    color: #3b82f6; /* Color del texto */
+    font-weight: bold; /* Hace el texto en negrita */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Añade sombra al texto */
 }
 
 .plan-prices {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 15px;
-}
-
-.plan-prices {
-    display: flex;
-    justify-content: space-evenly; /* Distribuye el espacio uniformemente entre los elementos */
-    margin-bottom: 16px; /* Espacio inferior entre el contenedor y otros elementos */
 }
 
 .price-item {
@@ -154,6 +93,11 @@
     color: #666;
 }
 
+.price-value {
+    font-size: 18px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Añade sombra al texto */
+}
+
 .old-price {
     font-size: 12px;
     color: #999;
@@ -163,6 +107,8 @@
 .plan-links {
     display: flex;
     justify-content: space-between;
+    padding: 8px; /* Añade padding para mejorar la apariencia */
+    margin: 0 8px; /* Añade un margen horizontal para espacio entre los elementos */
 }
 
 .plan-links a {
@@ -176,59 +122,18 @@
 
 .plan-status {
     width: 35%;
+    display: flex;
+    padding: 10px;
+    flex-grow: 1;
 }
 
 .plan-status ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
+    border-radius: 0.3rem;
 }
 
 .plan-status li {
     margin-bottom: 10px;
-}
-
-.plan-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-.plan-actions button {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.change-plan {
-    background-color: #28a745;
-    color: #fff;
-}
-
-.change-plan:hover {
-    background-color: #218838;
-}
-
-.cancel-plan {
-    background-color: #dc3545;
-    color: #fff;
-}
-
-.cancel-plan:hover {
-    background-color: #c82333;
-}
-
-.info-note {
-    margin-top: 20px;
-    background-color: #f1f1f1;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-}
-
-.info-note p {
-    margin: 0;
-    font-size: 14px;
-    color: #666;
 }

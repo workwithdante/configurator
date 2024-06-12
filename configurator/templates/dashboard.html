@@ -1,59 +1,47 @@
-<div class="col-sm-12">
-<div class="frappe-control">
+<div class="frappe-control col-sm-12">
     <div class="address-box row">
-        <div class="col-sm-6 d-flex">
-            <div class="p-4 bg-white rounded-lg flex-grow-1 custom-container" style="min-height: 300px;">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="flex items-center plan-type">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="plan-prices row">
+                    <div class="plan-type col-sm-6">
                         <img src="/assets/configurator/img/{{ company }}.png" alt="Logo1" class="logo">
                     </div>
-                    <div class="flex items-center plan-type">
-                        <span class="category">{{ category }}</span>+
-                        <span class="csr">CSR</span>
+                    <div class="plan-type col-sm-6">
+                        <p class="plan-name">{{ plan_name }}</p>
                     </div>
                 </div>
-                <p class="text-gray-700 mb-4 plan-name">{{ plan_name }}</p>
-                <div class="flex justify-between mb-4 plan-prices">
-                    <div class="plan-prices">
-                        <div class="price-item">
-                            <span class="price-value">{{ premium }}</span>
-                            <span class="price-label">Prima</span>
-                            <span class="old-price">Was $2028.58</span>
-                        </div>
-                        <div class="price-item">
-                            <span class="price-value">{{ deductible }}</span>
-                            <span class="price-label">Deducible</span>
-                        </div>
-                        <div class="price-item">
-                            <span class="price-value">{{ max_des }}</span>
-                            <span class="price-label">POO máx.</span>
-                        </div>
+                <div class="plan-prices">
+                    <div class="price-item">
+                        <span class="price-value">{{ premium }}</span>
+                        <span class="price-label">Premium</span>
+                        <span class="old-price">Was $2028.58</span>
+                    </div>
+                    <div class="price-item">
+                        <span class="price-value">{{ deductible }}</span>
+                        <span class="price-label">Deductible</span>
+                    </div>
+                    <div class="price-item">
+                        <span class="price-value">{{ max_des }}</span>
+                        <span class="price-label">POO máx.</span>
                     </div>
                 </div>
-                <div class="flex justify-between plan-links">
-                    <a href="#" class="text-blue-500 hover:underline">Ver detalles completos del plan</a>
-                    <a href="#" class="text-blue-500 hover:underline">Ver lista de beneficios</a>
+                <div class="plan-links">
+                    <a href="#" class="text-blue-500">Ver detalles completos del plan</a>
+                    <a href="#" class="text-blue-500">Ver lista de beneficios</a>
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 d-flex">
-            <div class="p-4 rounded-lg flex-grow-1 plan-status" style="min-height: 300px;">
-                <ul>
-                    <li><strong>Estado:</strong> Inscrito</li>
-                    <li><strong>Vigente:</strong> 6/1/2024</li>
-                    <li><strong>Vencimiento:</strong> 6/30/2024</li>
-                    <li><strong>Miembros:</strong> ISAAC TREJO RAMIREZ, DALIA TREJO</li>
-                    <li><strong>ID de subscritor:</strong> 0018475352</li>
-                    <li><strong>ID de FFM:</strong> 5280429770</li>
-                    <li><strong>Teléfono de pago:</strong> (877) 687-1169</li>
-                    <li><strong>Agente registrado:</strong> beatriz sierra (NPN: 8602276)</li>
-                </ul>
-                <div class="plan-actions">
-                    <button class="change-plan">Cambiar de plan</button>
-                    <button class="cancel-plan">Cancelar plan</button>
-                </div>
-            </div>
+        <div class="col-sm-6 plan-status">
+            <ul>
+                <li><strong>Estado:</strong> Inscrito</li>
+                <li><strong>Vigente:</strong> 6/1/2024</li>
+                <li><strong>Vencimiento:</strong> 6/30/2024</li>
+                <li><strong>Miembros:</strong> ISAAC TREJO RAMIREZ, DALIA TREJO</li>
+                <li><strong>ID de subscritor:</strong> 0018475352</li>
+                <li><strong>ID de FFM:</strong> 5280429770</li>
+                <li><strong>Teléfono de pago:</strong> (877) 687-1169</li>
+                <li><strong>Agente registrado:</strong> beatriz sierra (NPN: 8602276)</li>
+            </ul>
         </div>
     </div>
-</div>
 </div>

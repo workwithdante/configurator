@@ -6,7 +6,7 @@ frappe.ui.form.on("Customer", {
         values = {
             base_url: frappe.urllib.get_base_url(),
             category: "Silver",
-            plan_name: "Silver 5 NO SE QUE CUARTOS",
+            plan_name: "Silver 5",
             company: "cigna",
             premium: "42.32",
             deductible: "0.0",
