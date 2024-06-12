@@ -12,26 +12,27 @@ setup_wizard_stages = "configurator.setup.setup_wizard.setup_wizard.get_setup_st
 # import fixtures
 fixtures = [
     # export all records from the Category table
-    "Patient",
-	"Sales Order"
+    # "Patient",
+	"Sales Order",
+    "Contact"
     # export only those records that match the filters from the Role table
     #{"dt": "Role", "filters": [["role_name", "like", "Admin%"]]},
 ]
 
-get_translated_dict = {
-    ("doctype", "Sales Order"): "configurator.translations.en.get_translations"
-}
+# get_translated_dict = {
+#    ("doctype", "Sales Order"): "configurator.translations.en.get_translations"
+#}
 
-translated_search_doctypes = ["Sales Order"]
+#translated_search_doctypes = ["Sales Order"]
 
 # Registro de las traducciones
-translated_dict = {
-    "doctype": {
-        "Sales Order": {
-            "en": "configurator.translations.en.get_translations"
-        }
-    }
-}
+#translated_dict = {
+#    "doctype": {
+#        "Sales Order": {
+#            "en": "configurator.translations.en.get_translations"
+#        }
+#    }
+#}
 
 # required_apps = []
 
@@ -49,7 +50,10 @@ app_include_js = "configurator.bundle.js"
 # web_include_js = "/assets/configurator/js/configurator.js"
 
 web_include_js = "/assets/configurator/js/utils.js"
-doctype_js = {"Customer" : "public/js/customer.js"}
+doctype_js = {
+    "Customer" : "public/js/customer.js",
+    "Sales Order" : "public/js/sales_order.js",
+}
 
 # include custom scss in every website theme (without file extension ".scss")
 # website_theme_scss = "configurator/public/scss/website"
@@ -169,11 +173,11 @@ doctype_js = {"Customer" : "public/js/customer.js"}
 # 	}
 # }
 
-doc_events = {
-    "Contact": {
-        "on_update": "configurator.configurator.custom.contact.update_related_contacts"
-    }
-}
+#doc_events = {
+#    "Contact": {
+#        "on_update": "configurator.configurator.custom.contact.update_related_contacts"
+#    }
+#}
 
 # Scheduled Tasks
 # ---------------
