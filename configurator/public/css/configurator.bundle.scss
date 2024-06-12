@@ -55,8 +55,9 @@
 }
 
 .plan-type .logo {
-    margin-left: 30px;
+    width: auto;
     height: 80px;
+    object-fit: contain; 
 }
 
 .plan-name {
@@ -72,6 +73,8 @@
 .plan-prices {
     display: flex;
     justify-content: space-between;
+    margin-right: 15px;
+    margin-left: 15px;
 }
 
 .price-item {
