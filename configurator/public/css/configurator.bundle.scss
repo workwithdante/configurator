@@ -6,7 +6,6 @@
 
 .card {
     margin: 15px;
-    background-color: white;
     border-radius: 8px; /* Clase rounded-lg en Bootstrap equivale a border-radius de 8px */
     flex-grow: 1;
     border: 1px solid #ddd; /* Añade un borde de 1px de color gris claro */
@@ -121,7 +120,6 @@
 }
 
 .plan-status {
-    width: 35%;
     display: flex;
     padding: 10px;
     flex-grow: 1;

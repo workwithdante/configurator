@@ -7,7 +7,7 @@ frappe.ui.form.on("Customer", {
             base_url: frappe.urllib.get_base_url(),
             category: "Silver",
             plan_name: "Silver 5",
-            company: "cigna",
+            company: "ambetter",
             premium: "42.32",
             deductible: "0.0",
             max_des: "1275"
