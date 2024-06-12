@@ -1,5 +1,6 @@
 frappe.ui.form.on('Sales Order', {
     onload: function(frm) {
+        console.log("OK")
         //frm.fields_dict["custom_contact_relation"].grid.wrapper.find('.btn-custom-contact').remove();
         //frm.fields_dict["custom_patient_relation"].grid.wrapper.find('.btn-custom-patient').remove();
         //frm.fields_dict["custom_contact_relation"].grid.add_custom_button(__('Add Row'), function() {});
