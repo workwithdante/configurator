@@ -156,9 +156,9 @@ doctype_js = {
 # 	"ToDo": "custom_app.overrides.CustomToDo"
 # }
 
-#override_doctype_class = {
-#	"Patient": "configurator.configurator.custom.address.ERPNextAddress"
-#}
+override_doctype_class = {
+	"Customer": "configurator.configurator.custom.customer.customCustomer"
+}
 
 
 # Document Events

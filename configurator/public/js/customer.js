@@ -3,7 +3,7 @@ frappe.ui.form.on("Customer", {
         frm.trigger("show_status_policy");
 	},
     show_status_policy(frm) {
-        values = {
+        /* let values = {
             base_url: frappe.urllib.get_base_url(),
             category: "Silver",
             plan_name: "Silver 5",
@@ -11,10 +11,23 @@ frappe.ui.form.on("Customer", {
             premium: "42.32",
             deductible: "0.0",
             max_des: "1275"
-        }
-        frm.dashboard.stats_area_row.append(frappe.render_template(frappe.templates.dashboard, values))
-        //frm.dashboard.stats_area.df.collapsible = 0
-        frm.dashboard.stats_area.show();
+        } */
+        console.log(frm.doc)
+        frappe.call({
+            method: "get_current_policy",
+            doc: frm.doc,
+            args: {
+                customer: frm.doc.customer
+            },
+            freeze: true,
+            callback: function(r) {
+                console.log(r.message);
+                let values = r.message;
+                frm.dashboard.stats_area_row.append(frappe.render_template(frappe.templates.dashboard, values))
+                //frm.dashboard.stats_area.df.collapsible = 0
+                frm.dashboard.stats_area.show();
+            }
+        })
         if (false) {
             
             frm.dashboard.add_indicator(
