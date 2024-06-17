@@ -1,3 +1,5 @@
+import Section from "../../../../frappe/frappe/public/js/frappe/form/section.js";
+
 frappe.ui.form.on("Customer", {
 	refresh(frm) {
         frm.trigger("show_status_policy");
@@ -11,6 +13,12 @@ frappe.ui.form.on("Customer", {
             premium: "42.32",
             deductible: "0.0",
             max_des: "1275"
+
+            this.wrapper = $(`<div class="row
+				${this.df.is_dashboard_section ? "form-dashboard-section" : "form-section"}
+				${make_card ? "card-section" : ""}" data-fieldname="${this.df.fieldname}">
+			`).appendTo(this.parent);
+
         } */
         console.log(frm.doc)
         frappe.call({
@@ -23,8 +31,18 @@ frappe.ui.form.on("Customer", {
             callback: function(r) {
                 console.log(r.message);
                 let values = r.message;
-                frm.dashboard.stats_area_row.append(frappe.render_template(frappe.templates.dashboard, values))
+                let custom_area = new Section({
+                    label: __("Custom"),
+                    css_class: "form-links",
+                    hidden: 1,
+                    collapsible: 1,
+                    is_dashboard_section: 1,
+                    body_html: frappe.render_template(frappe.templates.dashboard, values),
+                });
+                frm.dashboard.add_section(frappe.render_template(frappe.templates.dashboard, values));
+                frm.dashboard.stats_area_row.append(frappe.render_template(frappe.templates.dashboard, values));
                 //frm.dashboard.stats_area.df.collapsible = 0
+                custom_area.show();
                 frm.dashboard.stats_area.show();
             }
         })
