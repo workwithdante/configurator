@@ -1,5 +1,3 @@
-import Section from "../../../../frappe/frappe/public/js/frappe/form/section.js";
-
 frappe.ui.form.on("Customer", {
 	refresh(frm) {
         frm.trigger("show_status_policy");
@@ -31,19 +29,19 @@ frappe.ui.form.on("Customer", {
             callback: function(r) {
                 console.log(r.message);
                 let values = r.message;
-                let custom_area = new Section({
+                /* let custom_area = new Section({
                     label: __("Custom"),
                     css_class: "form-links",
                     hidden: 1,
                     collapsible: 1,
                     is_dashboard_section: 1,
                     body_html: frappe.render_template(frappe.templates.dashboard, values),
-                });
-                frm.dashboard.add_section(frappe.render_template(frappe.templates.dashboard, values));
-                frm.dashboard.stats_area_row.append(frappe.render_template(frappe.templates.dashboard, values));
+                });*/
+                //frm.dashboard.add_section(frappe.render_template(frappe.templates.dashboard, values)); 
+                frm.dashboard.policy_area_row.append(frappe.render_template(frappe.templates.dashboard, values));
                 //frm.dashboard.stats_area.df.collapsible = 0
-                custom_area.show();
-                frm.dashboard.stats_area.show();
+                //custom_area.show();
+                frm.dashboard.policy_area.show();
             }
         })
         if (false) {

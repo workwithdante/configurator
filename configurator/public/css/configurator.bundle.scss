@@ -1,140 +1,134 @@
+@import './healthsherpa/healthsherpa.scss';
+
+.css-1ol1nt9 {
+    user-select: none;
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    flex-shrink: 0;
+    transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    font-size: 20px;
+    vertical-align: text-bottom;
+}
+
+.css-14x16ip {
+    user-select: none;
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    flex-shrink: 0;
+    transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    color: rgb(53, 176, 164);
+    font-size: 16px;
+    margin-right: 4px;
+    margin-left: 0px;
+    top: -1px;
+    position: relative;
+}
+
+.css-vtsccc {
+    display: flex;
+    flex-flow: wrap;
+    gap: 5px;
+}
+
+.css-1dnzclp {
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    background-color: transparent;
+    outline: 0px;
+    margin: 0px;
+    cursor: pointer;
+    user-select: none;
+    vertical-align: middle;
+    appearance: none;
+    text-decoration: none;
+    border: 1px solid rgb(174, 191, 204);
+    color: rgb(9, 112, 197);
+    box-shadow: none;
+    border-radius: 6px;
+    text-transform: none;
+    transition: none 0s ease 0s;
+    font-family: Avenir, sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 20px;
+    min-width: 0px;
+    padding: 4px 11px;
+}
+
+.css-1hgll6h {
+    user-select: none;
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    flex-shrink: 0;
+    transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    color: rgb(223, 85, 77);
+    font-size: 16px;
+    margin-right: 4px;
+    top: 3px;
+    position: relative;
+}
+
+:root {
+    --brandColor: #0970C5;
+    --heading-color: #0970C5;
+    --accentColor: #0D61A6;
+    --accentSemiLight: #0D61A6;
+    --altAccentSemiLight: #0D61A6;
+    --altAccentLight: #66D1FF;
+    --footerFontColor: #FFFFFF;
+    --legalDisclaimerFontColor: #FFFFFF;
+    --gray-50: #e7eff5;
+    --gray-100: #F9FAFC;
+    --font-stack: 'avenir', sans-serif;
+}
+
+@font-face {
+    font-family: Avenir;
+    font-display: auto;
+    font-weight: 200;
+    font-style: normal;
+    src: url(/assets/configurator/fonts/Avenir/AvenirLight/AvenirLTStd-Light.eot);
+    src: url(/assets/configurator/fonts/Avenir/AvenirLight/AvenirLTStd-Light.eot?#iefix) format("embedded-opentype"),url(/assets/configurator/fonts/Avenir/AvenirLight/AvenirLTStd-Light.woff2) format("woff2"),url(/assets/configurator/fonts/Avenir/AvenirLight/AvenirLTStd-Light.woff) format("woff"),url(/assets/configurator/fonts/Avenir/AvenirLight/AvenirLTStd-Light.ttf) format("truetype")
+}
+
+@font-face {
+    font-family: "Avenir";
+    font-display: auto;
+    font-weight: normal;
+    font-style: normal;
+    src: url(/assets/configurator/fonts/Avenir/AvenirRoman/AvenirLTStd-Roman.eot);
+    src: url(/assets/configurator/fonts/Avenir/AvenirRoman/AvenirLTStd-Roman.eot?#iefix) format("embedded-opentype"),url(/assets/configurator/fonts/Avenir/AvenirRoman/AvenirLTStd-Roman.woff2) format("woff2"),url(/assets/configurator/fonts/Avenir/AvenirRoman/AvenirLTStd-Roman.woff) format("woff"),url(/assets/configurator/fonts/Avenir/AvenirRoman/AvenirLTStd-Roman.ttf) format("truetype")
+}
+
+@font-face {
+    font-family: "Avenir";
+    font-display: auto;
+    font-weight: normal;
+    font-style: oblique;
+    src: url(/assets/configurator/fonts/Avenir/AvenirOblique/AvenirLTStd-Oblique.eot);
+    src: url(/assets/configurator/fonts/Avenir/AvenirOblique/AvenirLTStd-Oblique.eot?#iefix) format("embedded-opentype"),url(/assets/configurator/fonts/Avenir/AvenirOblique/AvenirLTStd-Oblique.woff2) format("woff2"),url(/assets/configurator/fonts/Avenir/AvenirOblique/AvenirLTStd-Oblique.woff) format("woff"),url(/assets/configurator/fonts/Avenir/AvenirOblique/AvenirLTStd-Oblique.ttf) format("truetype")
+}
+
+@font-face {
+    font-family: "Avenir";
+    font-display: auto;
+    font-weight: 600;
+    font-style: normal;
+    src: url(/assets/configurator/fonts/Avenir/AvenirHeavy/AvenirLTStd-Heavy.eot);
+    src: url(/assets/configurator/fonts/Avenir/AvenirHeavy/AvenirLTStd-Heavy.eot?#iefix) format("embedded-opentype"),url(/assets/configurator/fonts/Avenir/AvenirHeavy/AvenirLTStd-Heavy.woff2) format("woff2"),url(/assets/configurator/fonts/Avenir/AvenirHeavy/AvenirLTStd-Heavy.woff) format("woff"),url(/assets/configurator/fonts/Avenir/AvenirHeavy/AvenirLTStd-Heavy.ttf) format("truetype")
+}
+
 .configurator-control {
     @extend .col-sm-12 !optional;
     @extend .frappe-control !optional;
     @extend .my-2 !optional;
-}
-
-.card {
-    margin: 15px;
-    border-radius: 8px; /* Clase rounded-lg en Bootstrap equivale a border-radius de 8px */
-    flex-grow: 1;
-    border: 1px solid #ddd; /* Añade un borde de 1px de color gris claro */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Añade una sombra sutil */
-}
-
-.text-blue-500 {
-    color: #3b82f6;
-}
-
-.hover\:underline:hover {
-    text-decoration: underline;
-}
-
-:root {
-    --gray-50: #e7eff5;
-    --gray-100: #F9FAFC;
-    /* Define otras variables personalizadas según sea necesario */
-}
-
-.plan-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.plan-title {
-    font-size: 20px;
-    color: #333;
-}
-
-.plan-icon {
-    color: #007bff;
-    margin-right: 10px;
-}
-
-.plan-details {
-    display: flex;
-    justify-content: space-between;
-}
-
-.plan-type {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    justify-content: space-between;
-}
-
-.plan-type .logo {
-    width: auto;
-    height: 80px;
-    object-fit: contain; 
-}
-
-.plan-name {
-    font-size: 18px;
-    margin-bottom: 15px;
-    padding: 5px 10px; /* Relleno interno para la categoría */
-    border-radius: 5px; /* Bordes redondeados */
-    color: #3b82f6; /* Color del texto */
-    font-weight: bold; /* Hace el texto en negrita */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Añade sombra al texto */
-}
-
-.plan-prices {
-    display: flex;
-    justify-content: space-between;
-    margin-right: 15px;
-    margin-left: 15px;
-}
-
-.price-item {
-    display: flex;
-    justify-content: space-evenly;
-    flex-direction: column; /* Alinea los elementos en columna */
-    align-items: center; /* Centra los elementos horizontalmente */
-    text-align: center; /* Centra el texto dentro de cada elemento */
-    padding: 8px; /* Añade padding para mejorar la apariencia */
-    flex: 1; /* Permite que cada price-item crezca igual */
-    margin: 0 8px; /* Añade un margen horizontal para espacio entre los elementos */
-    background-color: #fff; /* Fondo blanco */
-}
-
-.price-label {
-    font-size: 14px;
-    flex: 1;
-    color: #666;
-}
-
-.price-value {
-    font-size: 18px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Añade sombra al texto */
-}
-
-.old-price {
-    font-size: 12px;
-    color: #999;
-    text-decoration: line-through;
-}
-
-.plan-links {
-    display: flex;
-    justify-content: space-between;
-    padding: 8px; /* Añade padding para mejorar la apariencia */
-    margin: 0 8px; /* Añade un margen horizontal para espacio entre los elementos */
-}
-
-.plan-links a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-.plan-links a:hover {
-    text-decoration: underline;
-}
-
-.plan-status {
-    display: flex;
-    padding: 10px;
-    flex-grow: 1;
-}
-
-.plan-status ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    border-radius: 0.3rem;
-}
-
-.plan-status li {
-    margin-bottom: 10px;
 }

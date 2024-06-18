@@ -9,6 +9,9 @@
     "dev": "cd salessheet && yarn dev",
     "build": "cd salessheet && yarn build"
   },
+  "dependencies": {
+    "@material-ui/styles": "^4.11.5"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC"
