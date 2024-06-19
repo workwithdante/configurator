@@ -15,7 +15,7 @@ frappe.ui.form.on("Customer", {
             this.wrapper = $(`<div class="row
 				${this.df.is_dashboard_section ? "form-dashboard-section" : "form-section"}
 				${make_card ? "card-section" : ""}" data-fieldname="${this.df.fieldname}">
-			`).appendTo(this.parent);
+			`).appendTo(this.parent);frappe.template.compile(template
 
         } */
         console.log(frm.doc)
@@ -39,6 +39,7 @@ frappe.ui.form.on("Customer", {
                 });*/
                 //frm.dashboard.add_section(frappe.render_template(frappe.templates.dashboard, values)); 
                 frm.dashboard.policy_area_row.append(frappe.render_template(frappe.templates.dashboard, values));
+                //frm.dashboard.policy_area_row.append(frappe.render_template(frappe.templates.index._index, values));
                 //frm.dashboard.stats_area.df.collapsible = 0
                 //custom_area.show();
                 frm.dashboard.policy_area.show();

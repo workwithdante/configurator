@@ -35,12 +35,12 @@ class CustomFormDashboard extends frappe.ui.form.Dashboard {
     refresh_policy_area() {
         // Lógica para refrescar el contenido de la sección personalizada
         this.policy_area_row.empty();
-        this.policy_area.show();
-		const labelElement = document.querySelector('.section-head');
+		this.policy_area.hide();
+		/* const labelElement = document.querySelector('.section-head');
         if (labelElement) {
             const labelText = labelElement.innerHTML;
             labelElement.innerHTML = labelText.replace(/(2024)/g, '<span class="highlight">$1</span>');
-        }
+        } */
     }
 }
 
