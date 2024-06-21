@@ -268,6 +268,24 @@ class Vtiger_WSClient:
         if self.hasError(response): return False
         result = response['result']
         return result
+    
+    def doUpdate(self, valuemap):
+        if not self.__checkLogin(): return False
+
+        if 'assigned_user_id' not in valuemap:
+            valuemap['assigned_user_id'] = self._userid
+
+        parameters = {
+            'operation'   : 'create',
+            'sessionName' : self._sessionid,
+            'element'     : self.toJSONString({key: value for key, value in valuemap.items() if str(value) != 'nan'})
+        }
+
+        response = self.__doPost(self._serviceurl, parameters)
+        print(response)
+        if self.hasError(response): return False
+        result = response['result']
+        return result
 
     '''
     Invoke webservice method
