@@ -276,7 +276,7 @@ class Vtiger_WSClient:
             valuemap['assigned_user_id'] = self._userid
 
         parameters = {
-            'operation'   : 'create',
+            'operation'   : 'update',
             'sessionName' : self._sessionid,
             'element'     : self.toJSONString({key: value for key, value in valuemap.items() if str(value) != 'nan'})
         }
