@@ -255,10 +255,17 @@
             }
             if(payInfo.value.pay.value === '') payInfo.value.pay.error = true
             else payInfo.value.pay.error = false
-            if(payInfo.value.autopay.value === '') payInfo.value.autopay.error = true
-            else payInfo.value.autopay.error = false
-            if(payInfo.value.autoPayDay.value === '' || isNaN(Number(payInfo.value.autoPayDay.value))) payInfo.value.autoPayDay.error = true
-            else payInfo.value.autoPayDay.error = false
+            if(payInfo.value.autopay.value === '') {
+                payInfo.value.autopay.error = true
+            }
+            else {
+                if(payInfo.value.autopay.value === 'Yes') {
+                    if(payInfo.value.autoPayDay.value === '' || isNaN(Number(payInfo.value.autoPayDay.value))) payInfo.value.autoPayDay.error = true
+                    else payInfo.value.autoPayDay.error = false
+                } else {
+                    payInfo.value.autoPayDay.error = false
+                }
+            }
             if(payInfo.value.ownerPay.value === '') payInfo.value.ownerPay.error = true
             else payInfo.value.ownerPay.error = false
             if(payInfo.value.addressPay.value === '') payInfo.value.addressPay.error = true
