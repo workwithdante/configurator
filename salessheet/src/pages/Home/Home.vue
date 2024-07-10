@@ -220,16 +220,39 @@
         if(payInfo.value.income.value === '' || Number(payInfo.value.income.value) < 14580) payInfo.value.income.error = true
         else payInfo.value.income.error = false
         if(payInfo.value.premium.value !== '0.00') {
-            if(payInfo.value.checkboxAccount.value === false) payInfo.value.checkboxAccount.error = true
-            else payInfo.value.checkboxAccount.error = false
-            if(payInfo.value.checkboxCard.value === false) payInfo.value.checkboxCard.error = true
-            else payInfo.value.checkboxCard.error = false
-            if(payInfo.value.bankAccount.value === '') payInfo.value.bankAccount.error = true
-            else payInfo.value.bankAccount.error = false
-            if(payInfo.value.typeAccount.value === '') payInfo.value.typeAccount.error = true
-            else payInfo.value.typeAccount.error = false
-            if(payInfo.value.typeCard.value === '') payInfo.value.typeCard.error = true
-            else payInfo.value.typeCard.error = false
+            if(payInfo.value.checkboxAccount.value === false && payInfo.value.checkboxCard.value === false) {
+                payInfo.value.checkboxAccount.error = true
+                payInfo.value.checkboxCard.error = true
+            } else if(payInfo.value.checkboxCard.value === true) {
+                if(payInfo.value.typeCard.value === '') payInfo.value.typeCard.error = true
+                else payInfo.value.typeCard.error = false
+                if(payInfo.value.cardPay.value === '' || payInfo.value.cardPay.value.length !== 19) payInfo.value.cardPay.error = true
+                else payInfo.value.cardPay.error = false
+                if(payInfo.value.codePay.value.length !== 3 && payInfo.value.codePay.value.length !== 4 ) payInfo.value.codePay.error = true
+                else payInfo.value.codePay.error = false
+                if(payInfo.value.expirationPay.value === '' || payInfo.value.expirationPay.value.length !== 5) payInfo.value.expirationPay.error = true
+                else payInfo.value.expirationPay.error = false
+
+                payInfo.value.bankAccount.error = false
+                payInfo.value.typeAccount.error = false
+                payInfo.value.accountPay.error = false
+                payInfo.value.routePay.error = false
+
+            } else {
+                if(payInfo.value.bankAccount.value === '') payInfo.value.bankAccount.error = true
+                else payInfo.value.bankAccount.error = false
+                if(payInfo.value.typeAccount.value === '') payInfo.value.typeAccount.error = true
+                else payInfo.value.typeAccount.error = false
+                if(payInfo.value.accountPay.value.length >= 9 && payInfo.value.accountPay.value.length <= 12) payInfo.value.accountPay.error = false
+                else payInfo.value.accountPay.error = true
+                if(payInfo.value.routePay.value === '' || payInfo.value.routePay.value.length !== 11) payInfo.value.routePay.error = true
+                else payInfo.value.routePay.error = false
+
+                payInfo.value.typeCard.error = false
+                payInfo.value.cardPay.error = false
+                payInfo.value.codePay.error = false
+                payInfo.value.expirationPay.error = false
+            }
             if(payInfo.value.pay.value === '') payInfo.value.pay.error = true
             else payInfo.value.pay.error = false
             if(payInfo.value.autopay.value === '') payInfo.value.autopay.error = true
@@ -240,16 +263,6 @@
             else payInfo.value.ownerPay.error = false
             if(payInfo.value.addressPay.value === '') payInfo.value.addressPay.error = true
             else payInfo.value.addressPay.error = false
-            if(payInfo.value.accountPay.value.length >= 9 && payInfo.value.accountPay.value.length <= 12) payInfo.value.accountPay.error = false
-            else payInfo.value.accountPay.error = true
-            if(payInfo.value.cardPay.value === '' || payInfo.value.cardPay.value.length !== 19) payInfo.value.cardPay.error = true
-            else payInfo.value.cardPay.error = false
-            if(payInfo.value.codePay.value.length !== 3 && payInfo.value.codePay.value.length !== 4 ) payInfo.value.codePay.error = true
-            else payInfo.value.codePay.error = false
-            if(payInfo.value.routePay.value === '' || payInfo.value.routePay.value.length !== 11) payInfo.value.routePay.error = true
-            else payInfo.value.routePay.error = false
-            if(payInfo.value.expirationPay.value === '' || payInfo.value.expirationPay.value.length !== 5) payInfo.value.expirationPay.error = true
-            else payInfo.value.expirationPay.error = false
         }
                 
         if(
