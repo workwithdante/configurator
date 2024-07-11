@@ -27,22 +27,22 @@ def create(basicInfo, dependentInfo, payInfo, helpDeskInfo, sellInfo):
 				#salesOrderData = {key: value for key, value in salesOrderData.items() if value != ''}
 				salesOrder = client.doCreate('SalesOrder', salesOrderData)
 				helpDeskDict.append({
-					'status': 'Digitada',
+					'status': 'Open',
 					'title': 'INSCRIPCIÓN INICIAL',
-					'year': '2024',
+					'cf_2727': '2024',
 					'description': f"{datetime.now().strftime('%m/%d/%Y')} Mr. Rocky <3\n\n \
 						Familia: {payDict.family['value']}\n \
 						SSN: {basicDict.ssn['value']}\n \
 						Ingresos: ${payDict.income['value']}\n \
 						Prima Estimada: ${payDict.premium['value']}\n \
 						Compañía: {payDict.company['value']}\n \
-						Plan ID: {payDict.planid['value']}\n \
-						Broker: {'Ana Daniella Corrales' if payDict.company['value'] == 'Oscar' and basicDict.address['state']['value'] == 'FL' else 'Beatriz Sierra'}\n \
+						{'Plan ID: ' + payDict.planid['value'] if payDict.planid['value'] != '' else 'MP ID: ' + payDict.mpid['value']}\n \
+						Broker: {basicDict.broker['value']}\n \
 						Efectividad: {datetime.strptime(f'{datetime.now().month + 1}/01/{datetime.now().year}', '%m/%d/%Y').strftime('%m/%d/%Y')}\n \
 						Prima: ${payDict.premium['value']}"
 				})
 				for helpDesk in helpDeskDict:
-					helpDeskData = getHelpDeskData(helpDesk, contact['id'], payDict.company)
+					helpDeskData = getHelpDeskData(helpDesk, contact['id'], payDict.company['value'])
 					helpDesk = client.doCreate('HelpDesk', helpDeskData)
 				#return frappe.throw("X ERROR")
 				return "ok"
@@ -73,7 +73,7 @@ def getContactData(basicDict, payDict) -> dict:
 		'lastname': basicDict.lastname['value'],
 		'cf_763': basicDict.ssn['value'],
 		'cf_759': datetime.strptime(basicDict.dob['value'], '%b %d %Y').strftime('%Y-%m-%d'),
-		'cf_771': basicDict.gender['value'],
+		'cf_771': 'MALE' if basicDict.gender['value'] == 'Male' else 'FEMALE',
 		'cf_1989': 'APLICA MP' if basicDict.coverage['label'] == 'Yes' else ('MEDICAID' if basicDict.coverage['label'] == 'Medicaid' else 'NO DESEA'),
 		'cf_809': f"{basicDict.address['address']['value']} {basicDict.address['optional']['value']}",
 		'cf_817': basicDict.address['city']['value'],
@@ -92,7 +92,7 @@ def getContactData(basicDict, payDict) -> dict:
 		'cf_2253': payDict.income['value'],
 		'cf_757': getDocument(basicDict.document['value']),
 		'cf_2187': 'Nueva' if basicDict.coverage['label'] == 'Yes' else ('Autorización' if basicDict.coverage['label'] == 'Autorización' else 'Recuperada'),
-		'cf_2071': payDict.family['value']
+		'cf_2767': 'SEND' if basicDict.aor['value'] == 'sent' else 'YES'
 	}
 
 def getSalesOrderData(basicDict, dependentDict, payDict, contactID) -> dict:
@@ -109,10 +109,11 @@ def getSalesOrderData(basicDict, dependentDict, payDict, contactID) -> dict:
 		'cf_1463': 'YES' if payDict.autopay['value'] == 'Yes' else 'NO',
 		'cf_2147': payDict.autoPayDay['value'],
 		'cf_2033': payDict.premium['value'],
-		'cf_2067': 'Ana Daniella Corrales' if payDict.company['value'] == 'Oscar' and basicDict.address['state']['value'] == 'FL' else 'Beatriz Sierra',
+		'cf_2067': 'Sin Broker' if basicDict.broker['value'] == 'Autorización' else basicDict.broker['value'],
 		'cf_2069': payDict.company['value'],
 		'cf_2035': payDict.planid['value'],
 		'cf_2025': payDict.income['value'],
+		'cf_2733': 'Negocio' if payDict.typeAccount['value'] == 'business' else 'Personal',
 		'cf_2737': f"{basicDict.address['address']['value']} {basicDict.address['optional']['value']}",
 		'cf_2739': basicDict.address['city']['value'],
 		'cf_2765': basicDict.address['state']['value'],
@@ -154,7 +155,7 @@ def getSalesOrderData(basicDict, dependentDict, payDict, contactID) -> dict:
 		'cf_2349': spouse[0]['middlename']['value'] if len(spouse) > 0 else '',
 		'cf_2351': spouse[0]['lastname']['value'] if len(spouse) > 0 else '',
 		'cf_2357': spouse[0]['ssn']['value'] if len(spouse) > 0 else '',
-		'cf_2359': spouse[0]['gender']['value'] if len(spouse) > 0 else '',
+		'cf_2359': 'MALE' if spouse[0]['gender']['value'] == 'Male' else 'FEMALE' if len(spouse) > 0 else '',
 		'cf_2355': datetime.strptime(spouse[0].dob['value'], '%b %d %Y').strftime('%Y-%m-%d') if len(spouse) > 0 else '',
 		'cf_2631': spouse[0]['pob']['value']['value'] if len(spouse) > 0 else '',
 		'cf_2709': '' if len(spouse) == 0 else ('YES' if spouse[0]['smoke']['value'] == 'Yes' else ('NOT' if spouse[0]['smoke']['value'] == 'No' else '')),
@@ -162,60 +163,61 @@ def getSalesOrderData(basicDict, dependentDict, payDict, contactID) -> dict:
 		'cf_2603': '' if len(spouse) == 0 else getDocument(spouse[0]['document']['value']),
 		'cf_2389': '' if len(spouse) == 0 else ('OBAMACARE' if len(spouse) > 0 and spouse[0]['coverage']['label'] == 'Yes' else ('MEDICAID' if len(spouse) > 0 and spouse[0]['coverage']['label'] == 'Medicaid' else None)),
 		'cf_2405': dependent[0]['firstname']['value'] if len(dependent) >= 1 else '',
-		'cf_2407': dependent[0]['middlename']['value'] if len(spouse) > 0 else '',
+		'cf_2407': dependent[0]['middlename']['value'] if len(dependent) >= 1 else '',
 		'cf_2409': dependent[0]['lastname']['value'] if len(dependent) >= 1 else '',
 		'cf_2417': dependent[0]['ssn']['value'] if len(dependent) >= 1 else '',
 		'cf_2413': datetime.strptime(dependent[0].dob['value'], '%b %d %Y').strftime('%Y-%m-%d') if len(dependent) >= 1 else '',
-		'cf_2411': dependent[0]['gender']['value'] if len(dependent) >= 1 else '',
+		'cf_2411': 'MALE' if dependent[0]['gender']['value'] == 'Male' else 'FEMALE' if len(dependent) >= 1 else '',
 		'cf_2711': '' if len(dependent) == 0 else ('YES' if len(dependent) >= 1 and  dependent[0]['smoke']['value'] == 'Yes' else ('NOT' if len(dependent) >= 1 and  dependent[0]['smoke']['value'] == 'No' else '')),
 		'cf_2423': '' if len(dependent) == 0 else ('YES' if len(dependent) >= 1 and  dependent[0]['pregnant']['value'] == 'Yes' else ('NOT' if len(dependent) >= 1 and  dependent[0]['pregnant']['value'] == 'No' else '')),
 		'cf_2431': '' if len(dependent) == 0 else ('HIJO(A)' if len(dependent) >= 1 and  dependent[0]['relationship']['value'] == 'Son/Daughter' else ('ABUELO(A)' if len(dependent) >= 1 and  dependent[0]['relationship']['value'] == 'Grandparent' else ('PADRE/MADRE' if len(dependent) >= 1 and dependent[0]['document']['value'] == 'Parent' else ('HERMANO(A)' if len(dependent) >= 1 and dependent[0]['document']['value'] == 'Sibling' else ('NIETO(A)' if len(dependent) >= 1 and dependent[0]['document']['value'] == 'Grandchild' else ('SOBRINO(A)' if len(dependent) >= 1 and dependent[0]['document']['value'] == 'Nephew/Niece' else ('TIO(A)' if len(dependent) >= 1 and dependent[0]['document']['value'] == 'Aunt/Uncle' else ('CUÑADO(A)' if len(dependent) >= 1 and dependent[0]['document']['value'] == 'Brother/Sister in-law' else ('YERNO/NUERA' if len(dependent) >= 1 and dependent[0]['document']['value'] == 'Son/Daughter in-law' else ''))))))))),
 		'cf_2401': '' if len(dependent) == 0 else ('OBAMACARE' if len(dependent) >= 1 and dependent[0]['coverage']['label'] == 'Yes' else ('MEDICAID' if len(dependent) >= 1 and dependent[0]['coverage']['label'] == 'Medicaid' else 'NO APLICA')),
 		'cf_2605': '' if len(dependent) == 0 else getDocument(dependent[0]['document']['value']),
 		'cf_2443': dependent[1]['firstname']['value'] if len(dependent) >= 2 else '',
-		'cf_2445': dependent[1]['middlename']['value'] if len(spouse) > 0 else '',
+		'cf_2445': dependent[1]['middlename']['value'] if len(dependent) >= 2 else '',
 		'cf_2447': dependent[1]['lastname']['value'] if len(dependent) >= 2 else '',
 		'cf_2455': dependent[1]['ssn']['value'] if len(dependent) >= 2 else '',
 		'cf_2451': datetime.strptime(dependent[1].dob['value'], '%b %d %Y').strftime('%Y-%m-%d') if len(dependent) >= 2 else '',
-		'cf_2449': dependent[1]['gender']['value'] if len(dependent) >= 2 else '',
+		'cf_2449': ('MALE' if dependent[1]['gender']['value'] == 'Male' else 'FEMALE') if len(dependent) >= 2 else '',
 		'cf_2713': '' if len(dependent) <= 1 else ('YES' if len(dependent) >= 2 and  dependent[1]['smoke']['value'] == 'Yes' else ('NOT' if len(dependent) >= 2 and  dependent[1]['smoke']['value'] == 'No' else '')),
 		'cf_2459': '' if len(dependent) <= 1 else ('YES' if len(dependent) >= 2 and  dependent[1]['pregnant']['value'] == 'Yes' else ('NOT' if len(dependent) >= 2 and  dependent[1]['pregnant']['value'] == 'No' else '')),
 		'cf_2465': '' if len(dependent) <= 1 else ('HIJO(A)' if len(dependent) >= 2 and  dependent[1]['relationship']['value'] == 'Son/Daughter' else ('ABUELO(A)' if len(dependent) >= 2 and  dependent[1]['relationship']['value'] == 'Grandparent' else ('PADRE/MADRE' if len(dependent) >= 2 and dependent[1]['document']['value'] == 'Parent' else ('HERMANO(A)' if len(dependent) >= 2 and dependent[1]['document']['value'] == 'Sibling' else ('NIETO(A)' if len(dependent) >= 2 and dependent[1]['document']['value'] == 'Grandchild' else ('SOBRINO(A)' if len(dependent) >= 2 and dependent[1]['document']['value'] == 'Nephew/Niece' else ('TIO(A)' if len(dependent) >= 2 and dependent[1]['document']['value'] == 'Aunt/Uncle' else ('CUÑADO(A)' if len(dependent) >= 2 and dependent[1]['document']['value'] == 'Brother/Sister in-law' else ('YERNO/NUERA' if len(dependent) >= 2 and dependent[1]['document']['value'] == 'Son/Daughter in-law' else ''))))))))),
 		'cf_2439': '' if len(dependent) <= 1 else ('OBAMACARE' if len(dependent) >= 2 and dependent[1]['coverage']['label'] == 'Yes' else ('MEDICAID' if len(dependent) >= 2 and dependent[1]['coverage']['label'] == 'Medicaid' else 'NO APLICA')),
 		'cf_2607': '' if len(dependent) <= 1 else getDocument(dependent[1]['document']['value']),
 		'cf_2479': dependent[2]['firstname']['value'] if len(dependent) >= 3 else '',
-		'cf_2481': dependent[2]['middlename']['value'] if len(spouse) > 0 else '',
+		'cf_2481': dependent[2]['middlename']['value'] if len(dependent) >= 3 else '',
 		'cf_2483': dependent[2]['lastname']['value'] if len(dependent) >= 3 else '',
 		'cf_2491': dependent[2]['ssn']['value'] if len(dependent) >= 3 else '',
 		'cf_2487': datetime.strptime(dependent[2].dob['value'], '%b %d %Y').strftime('%Y-%m-%d') if len(dependent) >= 3 else '',
-		'cf_2485': dependent[2]['gender']['value'] if len(dependent) >= 3 else '',
+		'cf_2485': ('MALE' if dependent[2]['gender']['value'] == 'Male' else 'FEMALE') if len(dependent) >= 3 else '',
 		'cf_2715': '' if len(dependent) <= 2 else ('YES' if len(dependent) >= 3 and  dependent[2]['smoke']['value'] == 'Yes' else ('NOT' if len(dependent) >= 3 and  dependent[2]['smoke']['value'] == 'No' else '')),
 		'cf_2495': '' if len(dependent) <= 2 else ('YES' if len(dependent) >=3 and  dependent[2]['pregnant']['value'] == 'Yes' else ('NOT' if len(dependent) >= 3 and  dependent[2]['pregnant']['value'] == 'No' else '')),
 		'cf_2501': '' if len(dependent) <= 2 else ('HIJO(A)' if len(dependent) >= 3 and  dependent[2]['relationship']['value'] == 'Son/Daughter' else ('ABUELO(A)' if len(dependent) >= 3 and  dependent[2]['relationship']['value'] == 'Grandparent' else ('PADRE/MADRE' if len(dependent) >= 3 and dependent[2]['document']['value'] == 'Parent' else ('HERMANO(A)' if len(dependent) >= 3 and dependent[2]['document']['value'] == 'Sibling' else ('NIETO(A)' if len(dependent) >= 3 and dependent[2]['document']['value'] == 'Grandchild' else ('SOBRINO(A)' if len(dependent) >= 3 and dependent[2]['document']['value'] == 'Nephew/Niece' else ('TIO(A)' if len(dependent) >= 3 and dependent[2]['document']['value'] == 'Aunt/Uncle' else ('CUÑADO(A)' if len(dependent) >= 3 and dependent[2]['document']['value'] == 'Brother/Sister in-law' else ('YERNO/NUERA' if len(dependent) >= 3 and dependent[2]['document']['value'] == 'Son/Daughter in-law' else ''))))))))),
 		'cf_2475': '' if len(dependent) <= 2 else ('OBAMACARE' if len(dependent) >= 3 and dependent[2]['coverage']['label'] == 'Yes' else ('MEDICAID' if len(dependent) >= 3 and dependent[2]['coverage']['label'] == 'Medicaid' else 'NO APLICA')),
 		'cf_2609': '' if len(dependent) <= 2 else getDocument(dependent[2]['document']['value']),
 		'cf_2515': dependent[3]['firstname']['value'] if len(dependent) >= 4 else '',
-		'cf_2517': dependent[3]['middlename']['value'] if len(spouse) > 0 else '',
+		'cf_2517': dependent[3]['middlename']['value'] if len(dependent) >= 4 else '',
 		'cf_2519': dependent[3]['lastname']['value'] if len(dependent) >= 4 else '',
 		'cf_2527': dependent[3]['ssn']['value'] if len(dependent) >= 4 else '',
 		'cf_2523': datetime.strptime(dependent[3].dob['value'], '%b %d %Y').strftime('%Y-%m-%d') if len(dependent) >= 4 else '',
-		'cf_2521': dependent[3]['gender']['value'] if len(dependent) >= 4 else '',
+		'cf_2521': ('MALE' if dependent[3]['gender']['value'] == 'Male' else 'FEMALE') if len(dependent) >= 4 else '',
 		'cf_2717': '' if len(dependent) <= 3 else ('YES' if len(dependent) >= 4 and  dependent[3]['smoke']['value'] == 'Yes' else ('NOT' if len(dependent) >= 4 and  dependent[3]['smoke']['value'] == 'No' else '')),
 		'cf_2531': '' if len(dependent) <= 3 else ('YES' if len(dependent) >= 4 and  dependent[3]['pregnant']['value'] == 'Yes' else ('NOT' if len(dependent) >= 4 and  dependent[3]['pregnant']['value'] == 'No' else '')),
 		'cf_2537': '' if len(dependent) <= 3 else ('HIJO(A)' if len(dependent) >= 4 and  dependent[3]['relationship']['value'] == 'Son/Daughter' else ('ABUELO(A)' if len(dependent) >= 4 and  dependent[3]['relationship']['value'] == 'Grandparent' else ('PADRE/MADRE' if len(dependent) >= 4 and dependent[3]['document']['value'] == 'Parent' else ('HERMANO(A)' if len(dependent) >= 4 and dependent[3]['document']['value'] == 'Sibling' else ('NIETO(A)' if len(dependent) >= 4 and dependent[3]['document']['value'] == 'Grandchild' else ('SOBRINO(A)' if len(dependent) >= 4 and dependent[3]['document']['value'] == 'Nephew/Niece' else ('TIO(A)' if len(dependent) >= 4 and dependent[3]['document']['value'] == 'Aunt/Uncle' else ('CUÑADO(A)' if len(dependent) >= 4 and dependent[3]['document']['value'] == 'Brother/Sister in-law' else ('YERNO/NUERA' if len(dependent) >= 4 and dependent[3]['document']['value'] == 'Son/Daughter in-law' else ''))))))))),
 		'cf_2511': '' if len(dependent) <= 3 else ('OBAMACARE' if len(dependent) >= 4 and dependent[3]['coverage']['label'] == 'Yes' else ('MEDICAID' if len(dependent) >= 4 and dependent[3]['coverage']['label'] == 'Medicaid' else 'NO APLICA')),
 		'cf_2639': '' if len(dependent) <= 3 else getDocument(dependent[3]['document']['value']),
 		'cf_2645': dependent[4]['firstname']['value'] if len(dependent) >= 5 else '',
-		'cf_2647': dependent[4]['middlename']['value'] if len(spouse) > 0 else '',
+		'cf_2647': dependent[4]['middlename']['value'] if len(dependent) >= 5 else '',
 		'cf_2649': dependent[4]['lastname']['value'] if len(dependent) >= 5 else '',
 		'cf_2687': dependent[4]['ssn']['value'] if len(dependent) >= 5 else '',
 		'cf_2681': datetime.strptime(dependent[4].dob['value'], '%b %d %Y').strftime('%Y-%m-%d') if len(dependent) >= 5 else '',
-		'cf_2679': dependent[4]['gender']['value'] if len(dependent) >= 5 else '',
+		'cf_2679': ('MALE' if dependent[4]['gender']['value'] == 'Male' else 'FEMALE') if len(dependent) >= 5 else '',
 		'cf_2719': '' if len(dependent) <= 4 else ('YES' if len(dependent) >= 5 and  dependent[4]['smoke']['value'] == 'Yes' else ('NOT' if len(dependent) >= 5 and  dependent[4]['smoke']['value'] == 'No' else '')),
 		'cf_2685': '' if len(dependent) <= 4 else ('YES' if len(dependent) >= 5 and  dependent[4]['pregnant']['value'] == 'Yes' else ('NOT' if len(dependent) >= 5 and  dependent[4]['pregnant']['value'] == 'No' else '')),
 		'cf_2699': '' if len(dependent) <= 4 else ('HIJO(A)' if len(dependent) >= 5 and  dependent[4]['relationship']['value'] == 'Son/Daughter' else ('ABUELO(A)' if len(dependent) >= 5 and  dependent[4]['relationship']['value'] == 'Grandparent' else ('PADRE/MADRE' if len(dependent) >= 5 and dependent[4]['document']['value'] == 'Parent' else ('HERMANO(A)' if len(dependent) >= 5 and dependent[4]['document']['value'] == 'Sibling' else ('NIETO(A)' if len(dependent) >= 5 and dependent[4]['document']['value'] == 'Grandchild' else ('SOBRINO(A)' if len(dependent) >= 5 and dependent[4]['document']['value'] == 'Nephew/Niece' else ('TIO(A)' if len(dependent) >= 5 and dependent[4]['document']['value'] == 'Aunt/Uncle' else ('CUÑADO(A)' if len(dependent) >= 5 and dependent[4]['document']['value'] == 'Brother/Sister in-law' else ('YERNO/NUERA' if len(dependent) >= 5 and dependent[4]['document']['value'] == 'Son/Daughter in-law' else ''))))))))),
 		'cf_2615': '' if len(dependent) <= 4 else ('OBAMACARE' if len(dependent) >= 5 and dependent[4]['coverage']['label'] == 'Yes' else ('MEDICAID' if len(dependent) >= 5 and dependent[4]['coverage']['label'] == 'Medicaid' else 'NO APLICA')),
 		'cf_2683': '' if len(dependent) <= 4 else getDocument(dependent[4]['document']['value']),
+		'cf_2071': payDict.family['value'],
 		'productid': '14x29415',
 		'assigned_user_id': '19x113',
 		'LineItems':  {

@@ -207,10 +207,15 @@
     }
 
     function validationPayInfo(): boolean {
-        if( payInfo.value.mpid.value.length !== 10) payInfo.value.mpid.error = true
-        else payInfo.value.mpid.error = false
-        if( payInfo.value.planid.value.length !== 14) payInfo.value.planid.error = true
-        else payInfo.value.planid.error = false
+        if(basicInfo.value.statusSell.value == 'Authorization') {
+            payInfo.value.planid.error = false
+            if( payInfo.value.mpid.value.length !== 10) payInfo.value.mpid.error = true
+            else payInfo.value.mpid.error = false
+        } else {
+            payInfo.value.mpid.error = false
+            if( payInfo.value.planid.value.length !== 14) payInfo.value.planid.error = true
+            else payInfo.value.planid.error = false
+        }
         if(payInfo.value.company.value === '') payInfo.value.company.error = true
         else payInfo.value.company.error = false
         if(payInfo.value.premium.value.length >= 4 && payInfo.value.premium.value.length <= 7) payInfo.value.premium.error = false
