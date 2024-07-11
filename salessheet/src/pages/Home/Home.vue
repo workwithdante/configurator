@@ -207,7 +207,8 @@
     }
 
     function validationPayInfo(): boolean {
-        if(basicInfo.value.statusSell.value == 'Authorization') {
+        
+        if(basicInfo.value.statusSell.value == 'Autorización') {
             payInfo.value.planid.error = false
             if( payInfo.value.mpid.value.length !== 10) payInfo.value.mpid.error = true
             else payInfo.value.mpid.error = false
@@ -278,6 +279,7 @@
         }
                 
         if(
+            !payInfo.value.mpid.error &&
             !payInfo.value.planid.error &&
             !payInfo.value.company.error &&
             !payInfo.value.premium.error &&
