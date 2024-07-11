@@ -155,7 +155,7 @@ def getSalesOrderData(basicDict, dependentDict, payDict, contactID) -> dict:
 		'cf_2349': spouse[0]['middlename']['value'] if len(spouse) > 0 else '',
 		'cf_2351': spouse[0]['lastname']['value'] if len(spouse) > 0 else '',
 		'cf_2357': spouse[0]['ssn']['value'] if len(spouse) > 0 else '',
-		'cf_2359': 'MALE' if spouse[0]['gender']['value'] == 'Male' else 'FEMALE' if len(spouse) > 0 else '',
+		'cf_2359': ('MALE' if spouse[0]['gender']['value'] == 'Male' else 'FEMALE') if len(spouse) > 0 else '',
 		'cf_2355': datetime.strptime(spouse[0].dob['value'], '%b %d %Y').strftime('%Y-%m-%d') if len(spouse) > 0 else '',
 		'cf_2631': spouse[0]['pob']['value']['value'] if len(spouse) > 0 else '',
 		'cf_2709': '' if len(spouse) == 0 else ('YES' if spouse[0]['smoke']['value'] == 'Yes' else ('NOT' if spouse[0]['smoke']['value'] == 'No' else '')),
