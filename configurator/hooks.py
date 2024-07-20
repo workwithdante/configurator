@@ -40,8 +40,8 @@ fixtures = [
 # ------------------
 
 # include js, css files in header of desk.html
-app_include_css = "configurator.bundle.css"
-app_include_js = "configurator.bundle.js"
+####            app_include_css = "configurator.bundle.css"
+####            app_include_js = "  "
 # app_include_js = "/assets/configurator/js/customer.js"
 # app_include_js = "/assets/configurator/js/configurator.js"
 
@@ -49,11 +49,11 @@ app_include_js = "configurator.bundle.js"
 # web_include_css = "/assets/configurator/css/configurator.css"
 # web_include_js = "/assets/configurator/js/configurator.js"
 
-web_include_js = "/assets/configurator/js/utils.js"
-doctype_js = {
-    "Customer" : "public/js/customer.js",
-    "Sales Order" : "public/js/sales_order.js",
-}
+####web_include_js = "/assets/configurator/js/utils.js"
+####doctype_js = {
+####    "Customer" : "public/js/customer.js",
+####    "Sales Order" : "public/js/sales_order.js",
+####}
 
 # include custom scss in every website theme (without file extension ".scss")
 # website_theme_scss = "configurator/public/scss/website"
@@ -156,9 +156,9 @@ doctype_js = {
 # 	"ToDo": "custom_app.overrides.CustomToDo"
 # }
 
-override_doctype_class = {
-	"Customer": "configurator.configurator.custom.customer.customCustomer"
-}
+####override_doctype_class = {
+	####"Customer": "configurator.configurator.custom.customer.customCustomer"
+####}
 
 
 # Document Events
